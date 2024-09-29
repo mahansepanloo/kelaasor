@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     #apps
     "accounts.apps.AccountsConfig",
+    "class.apps.ClassConfig",
 ]
 
 MIDDLEWARE = [
@@ -68,9 +69,13 @@ WSGI_APPLICATION = "q.wsgi.application"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': "q",
+        'USER': 'postgres',
+        'PASSWORD': 'MAHKAT@78',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -135,3 +140,17 @@ SIMPLE_JWT = {
 
 
 AUTH_USER_MODEL = 'accounts.User'
+
+#celery
+CELERY_BROKER_URL = 'amqp://localhost'
+CELERY_ROUTES = {
+    'class.tasks.send_email_to_customer': {'queue': 'class'},
+}
+
+#EMAIL
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "msepanloooo@gmail.com"
+EMAIL_HOST_PASSWORD = 'uskw wfzl vbxd yipi'
