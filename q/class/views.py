@@ -48,11 +48,10 @@ get :
                     item = serializer.save()
                     class_type = request.data.get('type')
                     if class_type == 2:
-                        item.type = 'privet'
                         item.is_privet = True
+                        item.save()
                     elif class_type == 1:
                         item.type = 'public'
-
                     else:
                         return Response({"error": "Invalid type."}, status=status.HTTP_400_BAD_REQUEST)
                 item.teacher.add(request.user)
@@ -62,7 +61,8 @@ get :
                 elif item.is_privet == True and item.is_password == True:
                     ListUserPrivet.objects.create(classs=item,is_password=True)
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
-
+                elif item.is_privet == False:
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
             except Exception as e:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
@@ -191,10 +191,10 @@ class AddPrivatePassword(APIView):
     permission_classes = [IsAuthenticated]
     def post(self, request,id_class):
         try:
-                item = Classs.objects.get(id=id_class,is_privet=True,is_password=True)
-                listuser = ListUserPrivet.objects.get(classs = item)
-        except Classs.DoesNotExist:
-                return Response('Class not found', status=status.HTTP_404_NOT_FOUND)
+            item = Classs.objects.get(id=id_class, is_privet=True, is_password=True)
+            listuser = ListUserPrivet.objects.get(classs=item, is_password=True)
+        except (Classs.DoesNotExist, ListUserPrivet.DoesNotExist):
+            return Response('Class not found', status=status.HTTP_404_NOT_FOUND)
         serializers = CodserSerializer(data=request.data)
         if serializers.is_valid():
             if item.Validation != serializers.validated_data['password']:
@@ -234,9 +234,9 @@ class AddPrivateEmailClass(APIView):
     permission_classes = [IsAuthenticated]
     def get(self,request,id_class,key):
         try:
-            item = Classs.objects.get(id=id_class,is_email=True)
-            listuser = ListUserPrivet.objects.get(classs=item)
-        except Classs.DoesNotExist:
+            item = Classs.objects.get(id=id_class, is_privet=True, is_email=True)
+            listuser = ListUserPrivet.objects.get(classs=item, is_email=True)
+        except (Classs.DoesNotExist, ListUserPrivet.DoesNotExist):
             return Response('Class not found', status=status.HTTP_404_NOT_FOUND)
         if item.Validation != key:
             return Response('you not permissons join class', status=status.HTTP_400_BAD_REQUEST)
