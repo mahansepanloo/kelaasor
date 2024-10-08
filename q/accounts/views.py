@@ -125,7 +125,15 @@ class EditUser(APIView):
 
 
 
+from exercise.models import *
 
-
-
-
+class UserSocer(APIView):
+    def get(self, request, id_class):
+        try:
+            socers = Socer.objects.filter(classs_id=id_class, user=request.user)
+            s = ExerciseSerializer(instance=socers, many=True)
+            rezsocer = RezScore.objects.filter(user=request.user, sub__exercise__classs_id=id_class)
+            ss = ExerciseSerializer4(instance=rezsocer,many=True)
+        except ExerciseModel.DoesNotExist:
+            return Response({'error': 'Exercise not found'}, status=status.HTTP_404_NOT_FOUND)
+        return Response(data=(s,ss))

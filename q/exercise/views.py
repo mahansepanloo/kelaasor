@@ -231,7 +231,17 @@ class AnswerCreateJuge(APIView):
 
 
 
+from django.http import HttpResponse
+class Download(APIView):
+    def get(self, request, file):
 
+        document = AnswersModel.objects.get(id=file)
+        file_path = document.file.path
+        file = open(file_path, 'r', encoding='utf-8')
+        file_content = file.read()
+        response = HttpResponse(file_content, content_type='text/plain')
+        response['Content-Disposition'] = f'attachment; filename=document'
+        return response
 
 
 
@@ -357,7 +367,16 @@ class SocerTextAnswer(APIView):
         return Response(status=status.HTTP_200_OK)
 
 
+def group_students(socer_list, num_groups):
+                sorted_socers = sorted(socer_list, key=lambda s: s['total_score'], reverse=True)
 
+                groups = [[] for _ in range(num_groups)]
+
+                for index, socer in enumerate(sorted_socers):
+                    group_index = index % num_groups
+                    groups[group_index].append(socer)
+
+                return groups
 
 class RankingView(APIView):
     # def get(self, request, class_id):
@@ -392,12 +411,58 @@ class RankingView(APIView):
                 )
 
                 ranked_scores_with_ranks = [
-                    {'rank': rank + 1, 'username': socer['user__username'], 'total_score': socer['total_score']}
-                    for rank, socer in enumerate(socer_list)]
+                    {'username': socer['user__username'], 'total_score': socer['total_score']}
+                    for  socer in socer_list]
 
                 return Response(ranked_scores_with_ranks, status=status.HTTP_200_OK)
             except Classs.DoesNotExist:
                 return Response({'error': 'Class not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        def post(self, request, class_id):
+            try:
+                some_class = Classs.objects.get(id=class_id)
+                socer_list = (
+                    Socer.objects
+                    .filter(exercises__classs=some_class)
+                    .values('user__username', 'user')
+                    .annotate(total_score=Sum('score_received'))
+                    .order_by('-total_score')
+                )
+
+                ranked_scores_with_ranks = [
+                    {'username': socer['user__username'], 'user_id': socer['user'],
+                     'total_score': socer['total_score']}
+                    for socer in socer_list
+                ]
+
+                num_groups = request.data['num']
+                grouped_socers = group_students(ranked_scores_with_ranks, num_groups)
+
+                exercise = ExerciseModel.objects.get(id=request.data['id_e'])
+                for group_members in grouped_socers:
+                    group = Group.objects.create(exercise=exercise)
+                    for member in group_members:
+                        user = User.objects.get(id=member['user_id'])
+                        group.users.add(user)
+
+                return Response(grouped_socers, status=status.HTTP_200_OK)
+            except Classs.DoesNotExist:
+                return Response({'error': 'Class not found'}, status=status.HTTP_404_NOT_FOUND)
+            except Exception as e:
+                return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class RezscoreUser(APIView):
 

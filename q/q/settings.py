@@ -159,3 +159,5 @@ EMAIL_HOST_USER = "msepanloooo@gmail.com"
 EMAIL_HOST_PASSWORD = 'uskw wfzl vbxd yipi'
 
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR/'media'

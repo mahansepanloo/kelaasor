@@ -70,7 +70,7 @@ class SubCriteria(models.Model):
 class AnswersModel(models.Model):  # ملاک اصلی ما
         exercise = models.ForeignKey(ExerciseModel, on_delete=models.CASCADE, related_name="eanswers")
         text = models.TextField(null=True, blank=True)
-        file = models.FileField(null=True, blank=True)
+        file = models.FileField(null=True, blank=True,upload_to='media')
         juge = models.TextField(null=True, blank=True)
         user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='answers', null=True, blank=True)
         group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='ganswer', null=True, blank=True)
@@ -97,6 +97,7 @@ class AnswersModel(models.Model):  # ملاک اصلی ما
             super().save(*args, **kwargs)
 
 
+from django.db.models import Sum
 
 class Socer(models.Model):#امتیاز نهایی
     classs = models.ForeignKey(Classs, on_delete=models.CASCADE, related_name='socer', null=True, blank=True)
@@ -105,7 +106,8 @@ class Socer(models.Model):#امتیاز نهایی
     score_received = models.IntegerField(null=True, blank=True)
     limit = models.IntegerField(default=0)
 
-
+    def total_score(self):
+        return Sum(self.score_received)
 
 
     def save(self, *args, **kwargs):
@@ -130,5 +132,4 @@ class GroupAssignment(models.Model):
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='group_assignments')
     score_received = models.FloatField(null=True, blank=True)
-
 

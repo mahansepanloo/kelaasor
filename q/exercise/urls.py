@@ -13,5 +13,6 @@ urlpatterns = [
     path('submitanswer/<int:id_q>', views.SubmitAnswer.as_view(), name='submit'),
     path('answercreateJuge/<int:id_a>',views.AnswerCreateJuge.as_view()),
     path('rank/<int:class_id>', views.RankingView.as_view(), name='subcriteria_list'),
+    path('Download/<int:file>',views.Download.as_view()),
 
 ]

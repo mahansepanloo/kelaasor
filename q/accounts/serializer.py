@@ -80,3 +80,14 @@ class EditProfileSerializer(serializers.ModelSerializer):
 
 class Deleteclass(serializers.Serializer):
     id_class = serializers.IntegerField()
+
+from exercise.models import *
+
+class ExerciseSerializer4(serializers.ModelSerializer):
+    class Meta:
+        model = RezScore
+        fields = "__all__"
+class ExerciseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Socer
+        fields = "__all__"

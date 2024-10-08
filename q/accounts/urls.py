@@ -12,6 +12,7 @@ urlpatterns = [
     path('OptCode', views.OptCode.as_view(), name="OptCode"),
     path('Change_password', views.Change_password.as_view(), name="Change_password"),
     path('Change_password2', views.Change_password2.as_view(), name="Change_password2"),
-    path('profile', views.EditUser.as_view(), name="profile")
+    path('profile', views.EditUser.as_view(), name="profile"),
+    path('profilesocer/<int:class_id>', views.UserSocer.as_view(), name='s')
 
 ]
