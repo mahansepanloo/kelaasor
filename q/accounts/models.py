@@ -1,5 +1,7 @@
 from django.contrib.auth.models import AbstractUser,PermissionsMixin
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
+
 
 
 
@@ -11,3 +13,5 @@ class User(AbstractUser,PermissionsMixin):
 
     def __str__(self):
         return self.username
+
+

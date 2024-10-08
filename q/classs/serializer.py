@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Classs
+from .models import Classs,SubCriteriaClass
 
 class CreateClassSerializer(serializers.ModelSerializer):
 
@@ -39,4 +39,7 @@ class ShowInfoClass(serializers.ModelSerializer):
 
 
 
-
+class SubClass(serializers.ModelSerializer):
+    class Meta:
+        model = SubCriteriaClass
+        fields = "__all__"

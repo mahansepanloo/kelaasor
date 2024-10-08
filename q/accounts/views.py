@@ -1,5 +1,5 @@
 from datetime import datetime,timedelta
-
+from classs.models import Classs
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenRefreshView,TokenObtainPairView
@@ -90,8 +90,13 @@ class EditUser(APIView):
             user = User.objects.get(id=request.user.id)
         except User.DoesNotExist:
             return Response('user does not exist', status=status.HTTP_400_BAD_REQUEST)
+        items = Classs.objects.filter(user=user)
         serializer = EditProfileSerializer(instance=user, partial=True)
-        return Response(serializer.data,status=status.HTTP_200_OK)
+        serializer_data = serializer.data
+        serializer_data['items'] = []
+        for item in items:
+            serializer_data['items'].append({'name': item.name})
+        return Response(serializer_data,status=status.HTTP_200_OK)
 
     def put(self, request):
         try:
@@ -103,6 +108,22 @@ class EditUser(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request):
+        data = Deleteclass(data=request.data)
+        if data.is_valid():
+            try:
+                item = Classs.objects.get(id=data.validated_data['id_class'])
+            except Classs.DoesNotExist:
+                return Response("Class does not exist", status=status.HTTP_400_BAD_REQUEST)
+            if request.user in item.user.all():
+                item.user.remove(request.user)
+                return Response("User removed", status=status.HTTP_200_OK)
+            else:
+                return Response("User does not exist", status=status.HTTP_400_BAD_REQUEST)
+        return Response(data.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 
 

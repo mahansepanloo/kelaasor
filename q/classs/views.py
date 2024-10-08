@@ -7,6 +7,8 @@ from .serializer import *
 from rest_framework.response import Response
 from rest_framework import status
 from django.db import transaction
+from .permissions import *
+from rest_framework.generics import ListCreateAPIView
 
 
 
@@ -17,21 +19,21 @@ get :
         Returns a list of all classes where the user is a teacher.
 
     post:
-        Creates a new class with the provided details.
+        Creates a new classs with the provided details.
 
         Required fields:
-            - type: Type of the class (1 for public, 2 for private)
-            - is_privet: Boolean indicating if the class is private
+            - type: Type of the classs (1 for public, 2 for private)
+            - is_privet: Boolean indicating if the classs is private
             - is_email: Boolean indicating if email notifications are enabled
-            - password: Password for the class (if private)
-            - name: Name of the class
-            - description: Description of the class
+            - password: Password for the classs (if private)
+            - name: Name of the classs
+            - description: Description of the classs
 
         Optional fields:
-            - Validation: Validation code for joining a private class
-            - stock: Number of available spots in the class (default is infinity if null)
-            - start: Start date join the class
-            - finish: End date join  the class
+            - Validation: Validation code for joining a private classs
+            - stock: Number of available spots in the classs (default is infinity if null)
+            - start: Start date join the classs
+            - finish: End date join  the classs
 
     """
     permission_classes = [IsAuthenticated]
@@ -71,16 +73,16 @@ get :
 class AddPublicClass(APIView):
     """
             get:
-        Adds the authenticated user to the public class identified by id_class.
+        Adds the authenticated user to the public classs identified by id_class.
 
     Parameters:
-        - id_class: ID of the class to join.
+        - id_class: ID of the classs to join.
 
     Response:
-        - If the class is not found, returns a 404 error.
+        - If the classs is not found, returns a 404 error.
         - If the user is already added, returns a message indicating so.
-        - If the class is not available for joining, returns an appropriate error message.
-        - If successful, adds the user to the class and reduces the stock.
+        - If the classs is not available for joining, returns an appropriate error message.
+        - If successful, adds the user to the classs and reduces the stock.
     """
     permission_classes = [IsAuthenticated]
     def get(self, request, id_class):
@@ -90,27 +92,27 @@ class AddPublicClass(APIView):
             return Response('Class not found', status=status.HTTP_404_NOT_FOUND)
         if item.is_privet == False:
             if request.user in item.user.all():
-                return Response('already added to class', status=status.HTTP_200_OK)
+                return Response('already added to classs', status=status.HTTP_200_OK)
             now = datetime.date.today()
             if item.start and item.start > now:
-                return Response('You cannot add class at this time', status=status.HTTP_400_BAD_REQUEST)
+                return Response('You cannot add classs at this time', status=status.HTTP_400_BAD_REQUEST)
             if item.finish and item.finish < now:
-                return Response('You cannot add class at this time', status=status.HTTP_400_BAD_REQUEST)
+                return Response('You cannot add classs at this time', status=status.HTTP_400_BAD_REQUEST)
             if item.stock and item.stock > 0:
                 try:
                     with transaction.atomic():
                         item.user.add(request.user)
                         item.stock -= 1
                         item.save()
-                        return Response("Added to class", status=status.HTTP_201_CREATED)
+                        return Response("Added to classs", status=status.HTTP_201_CREATED)
                 except Exception as e:
                     return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
             elif not item.stock:
                 item.user.add(request.user)
                 item.save()
-                return Response("Added to class", status=status.HTTP_201_CREATED)
+                return Response("Added to classs", status=status.HTTP_201_CREATED)
             else:
-                return Response('class not stock', status=status.HTTP_400_BAD_REQUEST)
+                return Response('classs not stock', status=status.HTTP_400_BAD_REQUEST)
         return Response(" no access ", status=status.HTTP_200_OK)
 
 
@@ -119,20 +121,20 @@ class AddPublicClass(APIView):
 
 class AdduserPrivet(APIView):
     """
-    API endpoint for adding users to a private class.
+    API endpoint for adding users to a private classs.
 
     post:
-        Adds a list of user IDs to the user_permissions of a private class.
+        Adds a list of user IDs to the user_permissions of a private classs.
 
     Parameters:
-        - id_class: ID of the private class to which users are being added.
+        - id_class: ID of the private classs to which users are being added.
 
     Request body:
         - user: List of user IDs to add.
 
     Response:
-        - If the class is not found or the user is not authorized, returns an error.
-        - If successful, adds the users to the class.
+        - If the classs is not found or the user is not authorized, returns an error.
+        - If successful, adds the users to the classs.
     """
     permission_classes = [IsAuthenticated]
     def post(self,request,id_class):
@@ -140,7 +142,9 @@ class AdduserPrivet(APIView):
             item = Classs.objects.get(teacher=request.user,id=id_class, is_privet=True)
             listuser = ListUserPrivet.objects.get(classs=item)
         except Classs.DoesNotExist:
-            return Response("class not find",status=status.HTTP_404_NOT_FOUND)
+            return Response("classs not find",status=status.HTTP_404_NOT_FOUND)
+        if not request.user in item.teacher.all():
+            return Response('not access' ,status = status.HTTP_403_FORBIDDEN)
         serializer = AdduserPrivetSerializer(data=request.data)
         if serializer.is_valid():
             try:
@@ -174,19 +178,19 @@ class AddPrivatePassword(APIView):
     """
 
     post:
-        Allows a user to join a private class by providing the class ID and password.
+        Allows a user to join a private classs by providing the classs ID and password.
 
     Parameters:
-        - id_class: ID of the class to join.
+        - id_class: ID of the classs to join.
 
     Request body:
-        - password: The password required to join the class.
+        - password: The password required to join the classs.
 
     Response:
-        - If the class is not found, returns a 404 error.
+        - If the classs is not found, returns a 404 error.
         - If the password is incorrect, returns an error.
         - If the user is already added, returns a message indicating so.
-        - If successful, adds the user to the class and reduces the stock.
+        - If successful, adds the user to the classs and reduces the stock.
     """
     permission_classes = [IsAuthenticated]
     def post(self, request,id_class):
@@ -202,12 +206,12 @@ class AddPrivatePassword(APIView):
             if request.user not in listuser.user.all():
                 return Response('not access', status=status.HTTP_400_BAD_REQUEST)
             if request.user in item.user.all():
-                return Response('already added to class', status=status.HTTP_200_OK)
+                return Response('already added to classs', status=status.HTTP_200_OK)
             now = datetime.date.today()
             if item.start and item.start > now:
-                return Response('You cannot add class at this time', status=status.HTTP_400_BAD_REQUEST)
+                return Response('You cannot add classs at this time', status=status.HTTP_400_BAD_REQUEST)
             if item.finish and item.finish < now:
-                return Response('You cannot add class at this time', status=status.HTTP_400_BAD_REQUEST)
+                return Response('You cannot add classs at this time', status=status.HTTP_400_BAD_REQUEST)
 
             if item.stock and item.stock > 0:
                 try:
@@ -215,21 +219,21 @@ class AddPrivatePassword(APIView):
                         item.user.add(request.user)
                         item.stock -= 1
                         item.save()
-                        return Response("Added to class", status=status.HTTP_201_CREATED)
+                        return Response("Added to classs", status=status.HTTP_201_CREATED)
                 except Exception as e:
                     return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
             elif not item.stock:
                 item.user.add(request.user)
                 item.save()
-                return Response("Added to class", status=status.HTTP_201_CREATED)
+                return Response("Added to classs", status=status.HTTP_201_CREATED)
             else:
-                return Response('class not stock', status=status.HTTP_400_BAD_REQUEST)
+                return Response('classs not stock', status=status.HTTP_400_BAD_REQUEST)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class AddPrivateEmailClass(APIView):
     """
-    get id_class and key in link send to email and join class
+    get id_class and key in link send to email and join classs
     """
     permission_classes = [IsAuthenticated]
     def get(self,request,id_class,key):
@@ -239,42 +243,42 @@ class AddPrivateEmailClass(APIView):
         except (Classs.DoesNotExist, ListUserPrivet.DoesNotExist):
             return Response('Class not found', status=status.HTTP_404_NOT_FOUND)
         if item.Validation != key:
-            return Response('you not permissons join class', status=status.HTTP_400_BAD_REQUEST)
+            return Response('you not permissons join classs', status=status.HTTP_400_BAD_REQUEST)
         if request.user in listuser.user.all():
             if request.user in item.user.all():
                 return Response('YOU ARE JOIND CLASS NOW', status=status.HTTP_400_BAD_REQUEST)
             now = datetime.date.today()
             if item.start and item.start > now:
-                    return Response('You cannot add class at this time', status=status.HTTP_400_BAD_REQUEST)
+                    return Response('You cannot add classs at this time', status=status.HTTP_400_BAD_REQUEST)
             if item.finish and item.finish < now:
-                    return Response('You cannot add class at this time', status=status.HTTP_400_BAD_REQUEST)
+                    return Response('You cannot add classs at this time', status=status.HTTP_400_BAD_REQUEST)
             if item.stock and item.stock > 0:
                 try:
                     with transaction.atomic():
                         item.user.add(request.user)
                         item.stock -= 1
                         item.save()
-                        return Response("Added to class", status=status.HTTP_201_CREATED)
+                        return Response("Added to classs", status=status.HTTP_201_CREATED)
                 except Exception as e:
                     return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
             elif not item.stock:
                 item.user.add(request.user)
                 item.save()
-                return Response("Added to class", status=status.HTTP_201_CREATED)
+                return Response("Added to classs", status=status.HTTP_201_CREATED)
             else:
-                return Response('class not stock', status=status.HTTP_400_BAD_REQUEST)
+                return Response('classs not stock', status=status.HTTP_400_BAD_REQUEST)
 
         else :
-            return Response('you not permissons join class', status=status.HTTP_400_BAD_REQUEST)
+            return Response('you not permissons join classs', status=status.HTTP_400_BAD_REQUEST)
 
 
 class Edite(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated,IsJoinable]
     def get(self, request,id_class):
         try:
             item = Classs.objects.get(id=id_class,teacher=request.user)
         except Classs.DoesNotExist:
-            return Response('not found class', status=status.HTTP_404_NOT_FOUND)
+            return Response('not found classs', status=status.HTTP_404_NOT_FOUND)
 
         s =ShowInfoClass(item)
         return Response(data=s.data , status=status.HTTP_200_OK)
@@ -283,17 +287,19 @@ class Edite(APIView):
         try:
             item = Classs.objects.get(id=id_class, teacher=request.user)
         except Classs.DoesNotExist:
-            return Response('not found class', status=status.HTTP_404_NOT_FOUND)
+            return Response('not found classs', status=status.HTTP_404_NOT_FOUND)
+        if not request.user in item.teacher.all():
+            return Response('not access' ,status = status.HTTP_403_FORBIDDEN)
         serializers = Editeclass(data=request.data)
         if serializers.is_valid():
             if serializers.validated_data.get('teacher'):
                 for i in serializers.validated_data['teacher']:
                     item.teacher.add(i)
-                    return Response('Added to class', status=status.HTTP_200_OK)
+                    return Response('Added to classs', status=status.HTTP_200_OK)
             if serializers.validated_data.get('ta'):
                 for i in serializers.validated_data['ta']:
                     item.ta.add(i)
-                    return Response(' ta Added to class', status=status.HTTP_200_OK)
+                    return Response(' ta Added to classs', status=status.HTTP_200_OK)
             return Response('error', status=status.HTTP_400_BAD_REQUEST)
         return Response('error', status=status.HTTP_400_BAD_REQUEST)
 
@@ -302,7 +308,9 @@ class Edite(APIView):
         try:
             item = Classs.objects.get(id=id_class, teacher=request.user)
         except Classs.DoesNotExist:
-            return Response('not found class', status=status.HTTP_404_NOT_FOUND)
+            return Response('not found classs', status=status.HTTP_404_NOT_FOUND)
+        if not request.user in item.teacher.all():
+            return Response('not access' ,status = status.HTTP_403_FORBIDDEN)
         serializers = Editeclass(data=request.data)
         if serializers.is_valid():
             if serializers.validated_data.get('user'):
@@ -312,10 +320,18 @@ class Edite(APIView):
                         return Response('user not founds', status=status.HTTP_404_NOT_FOUND)
                     if user in item.user.all():
                         item.user.remove(user)
-                        return Response(f'{user.username}remove to class', status=status.HTTP_200_OK)
+                        return Response(f'{user.username}remove to classs', status=status.HTTP_200_OK)
                     return Response('user not found', status=status.HTTP_404_NOT_FOUND)
             return Response('error',status=status.HTTP_400_BAD_REQUEST)
         return Response('error', status=status.HTTP_400_BAD_REQUEST)
+
+
+
+class SubCreateClass(APIView):
+    queryset = SubCriteriaClass.objects.all()
+    serializer_class = SubClass
+    permission_classes = [IsAuthenticated]
+
 
 
 

@@ -29,9 +29,12 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_framework_simplejwt",
+    "django_filters",
     #apps
     "accounts.apps.AccountsConfig",
-    "class.apps.ClassConfig",
+    "classs.apps.ClassConfig",
+    "exercise.apps.ExerciseConfig",
+    "forum.apps.ForumConfig",
 ]
 
 MIDDLEWARE = [
@@ -144,7 +147,7 @@ AUTH_USER_MODEL = 'accounts.User'
 #celery
 CELERY_BROKER_URL = 'amqp://localhost'
 CELERY_ROUTES = {
-    'class.tasks.send_email_to_customer': {'queue': 'class'},
+    'classs.tasks.send_email_to_customer': {'queue': 'classs'},
 }
 
 #EMAIL
@@ -154,3 +157,5 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "msepanloooo@gmail.com"
 EMAIL_HOST_PASSWORD = 'uskw wfzl vbxd yipi'
+
+

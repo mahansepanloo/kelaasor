@@ -21,6 +21,7 @@ class Classs(models.Model):
     start = models.DateField(null=True,blank=True)
     finish = models.DateField(null=True,blank=True)
 
+
     def __str__(self):
         return f"{self.name} - {self.id}"
 
@@ -30,3 +31,9 @@ class ListUserPrivet(models.Model):
     user = models.ManyToManyField(User)
     is_email = models.BooleanField(default=False)
     is_password = models.BooleanField(default=False)
+
+
+class SubCriteriaClass(models.Model):
+    exercise = models.ForeignKey(Classs, on_delete=models.CASCADE, related_name='subcriteria')
+    name = models.CharField(max_length=100)
+    score = models.FloatField()

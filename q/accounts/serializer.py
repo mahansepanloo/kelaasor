@@ -77,3 +77,6 @@ class EditProfileSerializer(serializers.ModelSerializer):
             "email": {"required": False},
 
         }
+
+class Deleteclass(serializers.Serializer):
+    id_class = serializers.IntegerField()
