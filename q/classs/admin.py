@@ -7,3 +7,6 @@ class ClassAdmin(admin.ModelAdmin):
 @admin.register(ListUserPrivet)
 class ModelNameAdmin(admin.ModelAdmin):
     pass
+@admin.register(SubCriteriaClass)
+class SubCriteriaClassAdmin(admin.ModelAdmin):
+    pass

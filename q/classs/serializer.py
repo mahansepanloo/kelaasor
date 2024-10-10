@@ -39,7 +39,15 @@ class ShowInfoClass(serializers.ModelSerializer):
 
 
 
-class SubClass(serializers.ModelSerializer):
+class SubClass(serializers.Serializer):
+    item = serializers.ListField()
+
+class SubEdite(serializers.ModelSerializer):
     class Meta:
         model = SubCriteriaClass
-        fields = "__all__"
+        exclude = ["clas"]
+        extra_kwargs={
+            'name':{'required': True},
+
+        }
+

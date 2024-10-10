@@ -79,16 +79,17 @@ class AnswersModel(models.Model):  # ملاک اصلی ما
 
         def save(self, *args, **kwargs):
             now = timezone.now()
-            if self.exercise.limit_time <= now:
-                if self.exercise.penalty_time is None or self.exercise.penalty_time == 0:
-                    self.exercise.available = False
-                    self.exercise.save()
-                    raise ValidationError("can not answer ")
-                else:
-                    self.exercise.limit_time += datetime.timedelta(days=self.exercise.penalty_time)
-                    if self.exercise.penalty_score:
-                        self.exercise.score -= (self.exercise.penalty_score * self.exercise.score) / 100
+            if self.exercise.limit_time:
+                if self.exercise.limit_time <= now:
+                    if self.exercise.penalty_time is None or self.exercise.penalty_time == 0:
+                        self.exercise.available = False
                         self.exercise.save()
+                        raise ValidationError("can not answer ")
+                    else:
+                        self.exercise.limit_time += datetime.timedelta(days=self.exercise.penalty_time)
+                        if self.exercise.penalty_score:
+                            self.exercise.score -= (self.exercise.penalty_score * self.exercise.score) / 100
+                            self.exercise.save()
 
 
             if not self.exercise.available:

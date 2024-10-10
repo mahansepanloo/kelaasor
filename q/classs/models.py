@@ -14,12 +14,13 @@ class Classs(models.Model):
     is_privet = models.BooleanField(default=False)
     is_email = models.BooleanField(default=False)
     is_password = models.BooleanField(default=False)
-    Validation = models.CharField(max_length=10000,null=True,blank=True)
+    Validation = models.BooleanField(default=True)
     name = models.CharField(max_length=100)
     description = models.TextField(null=True,blank=True)
     stock = models.IntegerField(null=True,blank=True)
     start = models.DateField(null=True,blank=True)
     finish = models.DateField(null=True,blank=True)
+    ramz = models.CharField(max_length=10,null=True,blank=True)
 
 
     def __str__(self):
@@ -34,6 +35,6 @@ class ListUserPrivet(models.Model):
 
 
 class SubCriteriaClass(models.Model):
-    exercise = models.ForeignKey(Classs, on_delete=models.CASCADE, related_name='subcriteria')
+    clas = models.ForeignKey(Classs, on_delete=models.CASCADE, related_name='subcriteria')
     name = models.CharField(max_length=100)
-    score = models.FloatField()
+    score = models.IntegerField()

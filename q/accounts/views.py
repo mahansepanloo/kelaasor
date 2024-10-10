@@ -8,9 +8,20 @@ from random import randint
 from .utls import *
 from rest_framework.response import Response
 from rest_framework import status
+from exercise.models import *
+
 
 
 class Register(APIView):
+    """
+    Handles user registration by validating input data and sending an OTP code.
+
+    Args:
+        request: The request object containing user data (username, password, phone number).
+
+    Returns:
+        Response: Returns a success message with status 200, or validation errors with status 400.
+    """
     def post(self,request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
@@ -27,10 +38,21 @@ class Register(APIView):
 
 
             return Response('opt code send',status=status.HTTP_200_OK)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 class OptCode(APIView):
+    """
+    Validates the provided OTP code and creates a new user if valid.
+
+    Args:
+        request: The request object containing the OTP code.
+
+    Returns:
+        Response: Returns a success message if user is created or an error message with status 400.
+    """
     def post(self,request):
+        if not request.session.get('register'):
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         serializer = OptCodes(data=request.data)
         if serializer.is_valid():
             # if (request.session['code'] == serializer.validated_data['code'] and
@@ -52,6 +74,15 @@ class RefreshView(TokenRefreshView):
 
 
 class Change_password(APIView):
+    """
+    Processes password change requests by validating user phone number and sending a verification code.
+
+    Args:
+        request: The request object containing the phone number.
+
+    Returns:
+        Response: Returns a success message with status 200, or validation errors with status 400.
+    """
     def post(self,request):
         serializer = ChangeSerializer(data=request.data)
         if serializer.is_valid():
@@ -84,8 +115,16 @@ class Change_password2(APIView):
 
 class EditUser(APIView):
     permission_classes = [IsAuthenticated]
-
     def get(self,request):
+        """
+        Retrieves the user profile and related items.
+
+        Args:
+            request: The request object.
+
+        Returns:
+            Response: Returns user data along with related items or error if the user does not exist.
+        """
         try:
             user = User.objects.get(id=request.user.id)
         except User.DoesNotExist:
@@ -95,10 +134,20 @@ class EditUser(APIView):
         serializer_data = serializer.data
         serializer_data['items'] = []
         for item in items:
-            serializer_data['items'].append({'name': item.name})
+            serializer_data['items'].append({'name': item.name,
+                                             "id":item.id})
         return Response(serializer_data,status=status.HTTP_200_OK)
 
     def put(self, request):
+        """
+        Updates the user profile with the provided data.
+
+        Args:
+            request: The request object containing the updated user data.
+
+        Returns:
+            Response: Returns updated user data or validation errors with status 400.
+        """
         try:
             user = User.objects.get(id=request.user.id)
         except User.DoesNotExist:
@@ -110,6 +159,15 @@ class EditUser(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request):
+        """
+        Removes the user from a specified class.
+
+        Args:
+            request: The request object containing the identifier of the class to be removed from.
+
+        Returns:
+            Response: Returns a success message if user is removed or error messages with status 400.
+        """
         data = Deleteclass(data=request.data)
         if data.is_valid():
             try:
@@ -125,15 +183,25 @@ class EditUser(APIView):
 
 
 
-from exercise.models import *
 
 class UserSocer(APIView):
-    def get(self, request, id_class):
+    """
+    Retrieves exercises related to the user in a specified class.
+
+    Args:
+        request: The request object.
+        class_id: The ID of the class to retrieve exercises for.
+
+    Returns:
+        Response: Returns exercise data or error if exercises or class are not found.
+    """
+    permission_classes = [IsAuthenticated]
+    def get(self, request, class_id):
         try:
-            socers = Socer.objects.filter(classs_id=id_class, user=request.user)
+            socers = Socer.objects.filter(classs_id=class_id, user=request.user)
             s = ExerciseSerializer(instance=socers, many=True)
-            rezsocer = RezScore.objects.filter(user=request.user, sub__exercise__classs_id=id_class)
+            rezsocer = RezScore.objects.filter(user=request.user, sub__exercise__classs_id=class_id)
             ss = ExerciseSerializer4(instance=rezsocer,many=True)
         except ExerciseModel.DoesNotExist:
             return Response({'error': 'Exercise not found'}, status=status.HTTP_404_NOT_FOUND)
-        return Response(data=(s,ss))
+        return Response(data=(s.data,ss.data))

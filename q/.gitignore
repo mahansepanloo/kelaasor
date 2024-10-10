@@ -12,6 +12,7 @@ env/
 .venv/
 pip-log.txt
 pip-delete-this-directory.txt
+/my_env
 
 
 # Django

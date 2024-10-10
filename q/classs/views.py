@@ -1,4 +1,6 @@
 import datetime
+import random
+
 from .tasks import send_email_to_customer
 from rest_framework.permissions import IsAuthenticated
 from .models import *
@@ -45,6 +47,13 @@ get :
     def post(self,request):
         serializer = CreateClassSerializer(data=request.data)
         if serializer.is_valid():
+            if serializer.validated_data['type'] == "1" and (serializer.validated_data['is_email'] == True or
+                                                           serializer.validated_data['is_password'] == True):
+                return Response("can not chose public class and active email and password", status=status.HTTP_400_BAD_REQUEST)
+            if "is_password" in serializer.validated_data and serializer.validated_data["is_password"] == True and (not 'ramz' in serializer.validated_data) :
+                return Response("save ramz", status=status.HTTP_400_BAD_REQUEST)
+
+
             try:
                 with transaction.atomic():
                     item = serializer.save()
@@ -58,6 +67,8 @@ get :
                         return Response({"error": "Invalid type."}, status=status.HTTP_400_BAD_REQUEST)
                 item.teacher.add(request.user)
                 if item.is_privet == True and item.is_email == True:
+                    item.ramz = random.randint(1000,9999)
+                    item.save()
                     ListUserPrivet.objects.create(classs=item,is_email=True)
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
                 elif item.is_privet == True and item.is_password == True:
@@ -90,7 +101,7 @@ class AddPublicClass(APIView):
             item = Classs.objects.get(id=id_class)
         except Classs.DoesNotExist:
             return Response('Class not found', status=status.HTTP_404_NOT_FOUND)
-        if item.is_privet == False:
+        if item.is_privet == False and item.Validation == True:
             if request.user in item.user.all():
                 return Response('already added to classs', status=status.HTTP_200_OK)
             now = datetime.date.today()
@@ -154,7 +165,7 @@ class AdduserPrivet(APIView):
                             listuser.user.add(i)
                         l = [u.email for u in listuser.user.all()]
                         send_email_to_customer.delay(request=request.data, subject='invite',
-                                                     message=f"http://127.0.0.1:8000/class/addprivete/{item.id}/{item.Validation}",
+                                                     message=f"http://127.0.0.1:8000/class/addprivete/{item.id}/{item.ramz}",
                                                      recipient_list=l)
                         return Response('add',status=status.HTTP_201_CREATED)
 
@@ -163,7 +174,7 @@ class AdduserPrivet(APIView):
                             listuser.user.add(i)
                         l = [u.email for u in listuser.user.all()]
                         send_email_to_customer.delay(request=request.data, subject='invite',
-                                                 message=f"password == {item.Validation}",
+                                                 message=f"password == {item.ramz}",
                                                  recipient_list=l)
                         return Response('add', status=status.HTTP_201_CREATED)
 
@@ -201,7 +212,7 @@ class AddPrivatePassword(APIView):
             return Response('Class not found', status=status.HTTP_404_NOT_FOUND)
         serializers = CodserSerializer(data=request.data)
         if serializers.is_valid():
-            if item.Validation != serializers.validated_data['password']:
+            if item.ramz != serializers.validated_data['password']:
                 return Response('password not match', status=status.HTTP_400_BAD_REQUEST)
             if request.user not in listuser.user.all():
                 return Response('not access', status=status.HTTP_400_BAD_REQUEST)
@@ -242,7 +253,7 @@ class AddPrivateEmailClass(APIView):
             listuser = ListUserPrivet.objects.get(classs=item, is_email=True)
         except (Classs.DoesNotExist, ListUserPrivet.DoesNotExist):
             return Response('Class not found', status=status.HTTP_404_NOT_FOUND)
-        if item.Validation != key:
+        if item.ramz != key:
             return Response('you not permissons join classs', status=status.HTTP_400_BAD_REQUEST)
         if request.user in listuser.user.all():
             if request.user in item.user.all():
@@ -328,9 +339,40 @@ class Edite(APIView):
 
 
 class SubCreateClass(APIView):
-    queryset = SubCriteriaClass.objects.all()
-    serializer_class = SubClass
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated,IsJoinable]
+    def post(self, request,id_class):
+        try:
+            clas = Classs.objects.get(id=id_class)
+        except  Classs.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = SubClass(data=request.data)
+        if serializer.is_valid():
+            for i in serializer.validated_data['item']:
+                SubCriteriaClass.objects.create(clas=clas,name=i[0],score=int(i[1]))
+            return Response ('success', status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+    def delete(self,request,id_class):
+            try:
+                clas = Classs.objects.get(id=id_class)
+            except Classs.DoesNotExist:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+            sub = SubCriteriaClass.objects.filter(clas=clas)
+            if sub.exists():
+                try:
+                    s = sub.get(name=request.data['name'])
+                except SubCriteriaClass.DoesNotExist:
+                    return Response(status=status.HTTP_404_NOT_FOUND)
+                s.delete()
+                return Response('delete', status=status.HTTP_204_NO_CONTENT)
+            return Response("not found sub", status=status.HTTP_404_NOT_FOUND)
+
+
+
+
 
 
 

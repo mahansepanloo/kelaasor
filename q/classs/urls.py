@@ -9,5 +9,6 @@ urlpatterns = [
     path('addpublic/<int:id_class>',views.AddPublicClass.as_view(),name='AddPublicClass'),
     path('addprivatep/<int:id_class>',views.AddPrivatePassword.as_view(),name="AddPrivatePassword"),
     path('addprivete/<int:id_class>/<str:key>',views.AddPrivateEmailClass.as_view(),name="AddPrivateEmailClass"),
-    path('Edite/<int:id_class>',views.Edite.as_view(), name='EditClass')
+    path('Edite/<int:id_class>',views.Edite.as_view(), name='EditClass'),
+    path('subCreateclass/<int:id_class>',views.SubCreateClass.as_view())
 ]
