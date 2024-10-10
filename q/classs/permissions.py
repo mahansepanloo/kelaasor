@@ -22,3 +22,16 @@ class IsJoinable(BasePermission):
                 request.user in item.teacher.all()):
             return True
         raise PermissionDenied("Access denied to see class.")
+
+class Isperm(BasePermission):
+    def has_permission(self, request, view):
+        class_id = view.kwargs.get('id_class')
+        if class_id is None:
+            return False
+        try:
+            item = Classs.objects.get(id=class_id)
+        except Classs.DoesNotExist:
+            raise NotFound("Class not found.")
+        if request.user in item.teacher.all():
+            return True
+        raise PermissionDenied("Access denied to see class.")

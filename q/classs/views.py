@@ -281,10 +281,27 @@ class AddPrivateEmailClass(APIView):
 
         else :
             return Response('you not permissons join classs', status=status.HTTP_400_BAD_REQUEST)
+class AddT(APIView):
+    def put(self, request, id_class):
+        try:
+            item = Classs.objects.get(id=id_class, teacher=request.user)
+        except Classs.DoesNotExist:
+            return Response('not found classs', status=status.HTTP_404_NOT_FOUND)
+        serializers = Editeclass(data=request.data)
+        if serializers.is_valid():
+            if serializers.validated_data.get('teacher'):
+                for i in serializers.validated_data['teacher']:
+                    item.teacher.add(i)
+                return Response('Added to classs', status=status.HTTP_200_OK)
+            if serializers.validated_data.get('ta'):
+                for i in serializers.validated_data['ta']:
+                    item.ta.add(i)
+                return Response(' ta Added to classs', status=status.HTTP_200_OK)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class Edite(APIView):
-    permission_classes = [IsAuthenticated,IsJoinable]
+    permission_classes = [IsAuthenticated,Isperm]
     def get(self, request,id_class):
         try:
             item = Classs.objects.get(id=id_class,teacher=request.user)
@@ -295,24 +312,15 @@ class Edite(APIView):
         return Response(data=s.data , status=status.HTTP_200_OK)
 
     def put(self, request, id_class):
-        try:
-            item = Classs.objects.get(id=id_class, teacher=request.user)
-        except Classs.DoesNotExist:
-            return Response('not found classs', status=status.HTTP_404_NOT_FOUND)
-        if not request.user in item.teacher.all():
-            return Response('not access' ,status = status.HTTP_403_FORBIDDEN)
-        serializers = Editeclass(data=request.data)
-        if serializers.is_valid():
-            if serializers.validated_data.get('teacher'):
-                for i in serializers.validated_data['teacher']:
-                    item.teacher.add(i)
-                    return Response('Added to classs', status=status.HTTP_200_OK)
-            if serializers.validated_data.get('ta'):
-                for i in serializers.validated_data['ta']:
-                    item.ta.add(i)
-                    return Response(' ta Added to classs', status=status.HTTP_200_OK)
-            return Response('error', status=status.HTTP_400_BAD_REQUEST)
-        return Response('error', status=status.HTTP_400_BAD_REQUEST)
+            try:
+                item = Classs.objects.get(id=id_class, teacher=request.user)
+            except Classs.DoesNotExist:
+                return Response('not found classs', status=status.HTTP_404_NOT_FOUND)
+            s = EditeinfoClass(data=request.data, instance=item, partial=True)
+            if s.is_valid():
+                s.save()
+                return Response('save', status=status.HTTP_201_CREATED)
+            return Response(s.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
     def delete(self, request, id_class):
@@ -339,7 +347,7 @@ class Edite(APIView):
 
 
 class SubCreateClass(APIView):
-    permission_classes = [IsAuthenticated,IsJoinable]
+    permission_classes = [IsAuthenticated,Isperm]
     def post(self, request,id_class):
         try:
             clas = Classs.objects.get(id=id_class)

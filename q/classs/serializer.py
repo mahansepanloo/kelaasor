@@ -28,6 +28,11 @@ class Editeclass(serializers.Serializer):
     ta = serializers.ListField(required=False)
     user = serializers.IntegerField(required=False)
 
+class EditeinfoClass(serializers.ModelSerializer):
+    class Meta():
+        model = Classs
+        fields = "__all__"
+
 
 class ShowInfoClass(serializers.ModelSerializer):
     class Meta:
