@@ -8,7 +8,7 @@ from classs.email import sendemail
 def notify_class_users(sender, instance, created, **kwargs):
     users = instance.classs.user.all()
     subject = f"Exercise {'Created' if created else 'Updated'}"
-    message = f"The exercise '{instance.name}' has been {'created' if created else 'updated'}. Please check it."
+    message = f"exercise '{instance.name}' has been {'created' if created else 'updated'}. check ."
     email_from = "msepanloooo@gmail.com"
 
     for user in users:

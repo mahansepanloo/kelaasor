@@ -9,7 +9,6 @@ from django.core.exceptions import ValidationError
 
 
 
-
 class ExerciseModel(models.Model):
     classs = models.ForeignKey(Classs, on_delete=models.CASCADE, related_name='exercises')
     name = models.CharField(max_length=100)
@@ -17,7 +16,7 @@ class ExerciseModel(models.Model):
     limit_time = models.DateTimeField(null=True, blank=True)
     limit_send = models.IntegerField(null=True, blank=True)
     score = models.IntegerField()
-    nsocre = models.IntegerField()
+    nsocre = models.IntegerField(null=True,blank=True)
     is_group = models.BooleanField(default=False)
     answer_format = models.CharField(
         max_length=10,
@@ -34,8 +33,8 @@ class ExerciseModel(models.Model):
 
 
     def save(self, *args, **kwargs):
-        self.score = self.nsocre
-        super(ExerciseModel, self).save(*args, **kwargs)
+        self.nscore = self.score
+        super().save(*args, **kwargs)
 
 
 
@@ -74,7 +73,7 @@ class AnswersModel(models.Model):  # ملاک اصلی ما
         juge = models.TextField(null=True, blank=True)
         user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='answers', null=True, blank=True)
         group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='ganswer', null=True, blank=True)
-        score_received = models.FloatField(null=True, blank=True)
+        score_received = models.IntegerField(null=True, blank=True)
         bazkhord = models.TextField(null=True,blank=True)
 
         def save(self, *args, **kwargs):

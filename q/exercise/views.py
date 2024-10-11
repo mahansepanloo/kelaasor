@@ -17,6 +17,26 @@ import subprocess
 from django.db.models import Sum
 
 
+class Inboxew(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        item = InboxExerciseModel.objects.filter(user=request.user)
+        if item.exists():
+            serilazers = InboxExerciseSerializer(instance=item, many=True)
+            return Response(serilazers.data, status=status.HTTP_200_OK)
+        return Response("not found inbox exercise", status=status.HTTP_404_NOT_FOUND)
+    def post(self,request):
+        try:
+            item = InboxExerciseModel.objects.get(id=request.data['ide'])
+        except  InboxExerciseModel.DoesNotExist:
+            return Response("not found", status=status.HTTP_404_NOT_FOUND)
+        q = ExerciseModel.objects.create(classs_id=request.data['class'],name=item.exercise.name,
+                                         description=item.exercise.description,score=item.exercise.score,
+                                         answer_format=item.exercise.answer_format)
+        serilazers = CreateExerciseSerializers(instance=q)
+        return Response(serilazers.data, status=status.HTTP_201_CREATED)
+
+
 
 
 
@@ -25,7 +45,7 @@ from django.db.models import Sum
 
 
 class CreateExerciseView(APIView):
-    permission_classes = [IsAuthenticated,IsJoinable]
+    permission_classes = [IsAuthenticated, IsJoinable]
     def get(self, request,id_class):
         try:
             item = Classs.objects.get(id=id_class)
@@ -57,6 +77,19 @@ class CreateExerciseView(APIView):
 
 class SubCriteriaCreate(APIView):
     permission_classes = [IsAuthenticated]
+
+    def get(self, request, id_q):
+        item = SubCriteria.objects.filter(exercise__id=id_q)
+        if item.exists():
+            q=item.first()
+            if request.user in q.exercise.classs.teacher.all() or request.user in q.exercise.classs.ta.all():
+                    serializer = ShowSubSerializer(instance=item,many=True)
+                    return Response(serializer.data,status=status.HTTP_200_OK)
+            return Response('not access',status=status.HTTP_403_FORBIDDEN)
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+
     def post(self, request,id_q):
         try:
             q = ExerciseModel.objects.get(id=id_q)
@@ -72,11 +105,25 @@ class SubCriteriaCreate(APIView):
             return Response(serilazers.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response("not access", status=status.HTTP_400_BAD_REQUEST)
 
+    def put(self, request, id_q):
+        try:
+            q = SubCriteria.objects.get(id=id_q)
+        except ExerciseModel.DoesNotExist:
+            return Response("exercise not found", status=status.HTTP_404_NOT_FOUND)
+        if request.user in q.exercise.classs.teacher.all() or request.user in q.exercise.classs.ta.all():
+            serializer = ShowSubSerializer(instance=q,data=request.data,partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data,status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response('not access',status=status.HTTP_403_FORBIDDEN)
+
+
 
 
 
 class EditExerciseView(APIView):
-    permission_classes = [IsAuthenticated,IsJoinable]
+    permission_classes = [IsAuthenticated]
     def put(self, request, id_exercise):
         try:
             item = ExerciseModel.objects.get(id=id_exercise)
@@ -90,44 +137,53 @@ class EditExerciseView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response('not access',status=status.HTTP_403_FORBIDDEN)
 
+
+
 class Create_Group_Manual(APIView):
-    def post(self, request,id_e):
+    permission_classes = [IsAuthenticated]
+    def post(self, request, id_e):
         try:
             exercise = ExerciseModel.objects.get(id=id_e)
         except ExerciseModel.DoesNotExist:
             return Response('exercise does not exist',status=status.HTTP_404_NOT_FOUND)
-        serializer = Create_group(data=request.data)
-        if serializer.is_valid():
-           g = Group.objects.create(exercise=exercise)
-           for i in serializer.validated_data['list_id']:
-               g.user.add(i)
-           g.save()
-           return Response("success",status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        if request.user in exercise.classs.teacher.all() or request.user in exercise.classs.ta.all():
+            serializer = Create_group(data=request.data)
+            if serializer.is_valid():
+               g = Group.objects.create(exercise=exercise)
+               for i in serializer.validated_data['list_id']:
+                   g.user.add(i)
+               g.save()
+               return Response("success",status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response('not access',status=status.HTTP_403_FORBIDDEN)
 
 
 class SubmitAnswer(APIView):
-    parser_classes = (FileUploadParser,MultiPartParser)
-
+    permission_classes = [IsAuthenticated]
     def post(self, request, id_q):
         try:
             exercise = ExerciseModel.objects.get(id=id_q)
         except ExerciseModel.DoesNotExist:
             return Response('Exercise does not exist', status=status.HTTP_404_NOT_FOUND)
-
+        if exercise.limit_send:
+            if exercise.is_group:
+                try:
+                    group = Group.objects.get(exercise=exercise, user=request.user)
+                    submission_count = AnswersModel.objects.filter(group=group, exercise=exercise).count()
+                except Group.DoesNotExist:
+                    return Response('Group not found', status=status.HTTP_404_NOT_FOUND)
+            else:
+                submission_count = AnswersModel.objects.filter(user=request.user, exercise=exercise).count()
+            if submission_count > exercise.limit_send:
+                return Response('Cannot send answer', status=status.HTTP_400_BAD_REQUEST)
         if str(exercise.answer_format) == str(request.data['answer_format']):
             if not exercise.is_group:
-                    if request.data['answer_format'] == 1:
+                    if request.data['answer_format'] == "1":
                         AnswersModel.objects.create(exercise=exercise, text=request.data['text'], user=request.user)
                         return Response('created', status=status.HTTP_201_CREATED)
-                    elif request.data['answer_format'] == 2:
-                        AnswersModel.objects.create(exercise=exercise, file=request.data.get('file'), user=request.user)
+                    elif request.data['answer_format'] == "2":
+                        AnswersModel.objects.create(exercise=exercise, file=request.FILES['file'], user=request.user)
                         return Response('created', status=status.HTTP_201_CREATED)
-                    # elif request.data['answer_format'] == 3:
-                    #     AnswersModel.objects.create(exercise=exercise, juge=request.data['text'], user=request.user)
-
-                        # return Response('created', status=status.HTTP_201_CREATED)
-
                     return Response("bad requset", status=status.HTTP_400_BAD_REQUEST)
             if exercise.is_group:
                 try:
@@ -135,24 +191,12 @@ class SubmitAnswer(APIView):
                 except Group.DoesNotExist:
                     return Response("Group does not exist", status=status.HTTP_404_NOT_FOUND)
                 if request.data['answer_format'] == '1':
-                    AnswersModel.objects.create(exercise=exercise, text=request.file, group=g)
+                    AnswersModel.objects.create(exercise=exercise, text=request.FILES['file'], group=g)
                     return Response('created', status=status.HTTP_201_CREATED)
-
                 elif request.data['answer_format'] == '2':
                     AnswersModel.objects.create(exercise=exercise, file=request.data.get('file'), group=g)
                     return Response('created', status=status.HTTP_201_CREATED)
-
-                # elif request.data['answer_format'] == '3':
-                #     AnswersModel.objects.create(exercise=exercise, juge=request.data['text'], group=g)
-                #     return Response('created', status=status.HTTP_201_CREATED)
-
         return Response({'error': 'Invalid answer format'}, status=status.HTTP_400_BAD_REQUEST)
-
-
-
-
-
-
 
 
 
@@ -188,18 +232,19 @@ class AnswerCreateJuge(APIView):
         answer_data = {
             'exercise': question,
             'juge': code,
-            'user': request.user if not question.is_group else None,
-            'group': Group.objects.filter(exercise=question, user=request.user).first() if question.is_group else None,
+            'user': request.user,
             'score_received': score,
         }
         answer = AnswersModel.objects.create(**answer_data)
         serializer = AnswerSerializer(answer)
-        socer, created = Socer.objects.get_or_create(exercise=question, user=request.user)
-        if socer.score_received < score:
+        socer, created = Socer.objects.get_or_create(exercises=question, user=request.user)
+        if socer.score_received:
+            if socer.score_received < score:
+                socer.score_received = score
+                socer.save()
+        else:
             socer.score_received = score
             socer.save()
-
-
 
         serializer = AnswerSerializer(answer)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -234,7 +279,6 @@ class AnswerCreateJuge(APIView):
 from django.http import HttpResponse
 class Download(APIView):
     def get(self, request, file):
-
         document = AnswersModel.objects.get(id=file)
         file_path = document.file.path
         file = open(file_path, 'r', encoding='utf-8')
@@ -242,23 +286,6 @@ class Download(APIView):
         response = HttpResponse(file_content, content_type='text/plain')
         response['Content-Disposition'] = f'attachment; filename=document'
         return response
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -275,70 +302,81 @@ class all_Answer(APIView):
 
 
 class SocerTextAnswer(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self,reqeust,id_a):
         try:
             q = AnswersModel.objects.get(id=id_a)
         except AnswersModel.DoesNotExist:
             return Response("not found", status=status.HTTP_404_NOT_FOUND)
-        if q.exercise.is_group == False:
-            serializeranswer = AnswerTextSerializer1(instance=q,many=False)
-            rez = SubCriteria.objects.filter(exercise=q.exercise)
-            if rez.exists():
-                serializerrez = AnswerTextSerializer2(instance=rez,many=True)
-                return Response(data=(serializeranswer.data,serializerrez.data), status=status.HTTP_200_OK)
-            return Response(data=serializeranswer.data, status=status.HTTP_200_OK)
-        elif q.exercise.is_group == True:
-            try:
-                g =Group.objects.get(user=q.user)
-            except Group.DoesNotExist:
-                return Response("not found", status=status.HTTP_404_NOT_FOUND)
-            serializergroup = AnswerTextSerializer3(instance=g)
-            serializeranswer = AnswerTextSerializer1(instance=q, many=False)
-            rez = SubCriteria.objects.filter(exercise=q.exercise)
-            if rez.exists():
-                serializerrez = AnswerTextSerializer2(instance=rez, many=True)
-                return Response(data=(serializeranswer.data, serializerrez.data,serializergroup.data), status=status.HTTP_200_OK)
-            return Response(data=serializeranswer.data, status=status.HTTP_200_OK)
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        if reqeust.user in q.exercise.classs.ta.all() or reqeust.user in q.exercise.classs.teacher.all():
+            if q.exercise.is_group == False:
+                serializeranswer = AnswerTextSerializer1(instance=q,many=False)
+                rez = SubCriteria.objects.filter(exercise=q.exercise)
+                if rez.exists():
+                    serializerrez = AnswerTextSerializer2(instance=rez,many=True)
+                    return Response(data=(serializeranswer.data,serializerrez.data), status=status.HTTP_200_OK)
+                return Response(data=serializeranswer.data, status=status.HTTP_200_OK)
+            elif q.exercise.is_group == True:
+                try:
+                    g =Group.objects.get(user=q.user)
+                except Group.DoesNotExist:
+                    return Response("not found", status=status.HTTP_404_NOT_FOUND)
+                serializergroup = AnswerTextSerializer3(instance=g)
+                serializeranswer = AnswerTextSerializer1(instance=q, many=False)
+                rez = SubCriteria.objects.filter(exercise=q.exercise)
+                if rez.exists():
+                    serializerrez = AnswerTextSerializer2(instance=rez, many=True)
+                    return Response(data=(serializeranswer.data, serializerrez.data,serializergroup.data), status=status.HTTP_200_OK)
+                return Response(data=serializeranswer.data, status=status.HTTP_200_OK)
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response("not access",status=status.HTTP_403_FORBIDDEN)
 
-    def post(self, request, id_a):
+    def put(self, request, id_a):
         try:
             q = AnswersModel.objects.get(id=id_a)
         except AnswersModel.DoesNotExist:
             return Response("not found", status=status.HTTP_404_NOT_FOUND)
         if request.user in q.exercise.classs.teacher.all() or request.user in q.exercise.classs.ta.all():
-            a = AnswerSerilazers(data=request.data)
+            a = AnswerSerilazers(instance=q,data=request.data,partial=True)
             if a.is_valid():
+                    b = a.validated_data.get("bazkhord",None)
                     if a.validated_data["score_received"] > q.exercise.score:
                         return Response("score not valid", status=status.HTTP_400_BAD_REQUEST)
-                    if not q.exercise.is_group:
-                        l = AnswersModel.objects.filter(user=q.user).count()
-                        if l < q.exercise.limit_send:
-                            q.score_received = a.validated_data["score_received"]
-                            q.save()
-                            socer, created = Socer.objects.get_or_create(exercise=q.exercise, user=q.user)
+                    if  q.exercise.is_group == False:
+                        q.score_received = int(a.validated_data["score_received"])
+                        q.bazkhord = b
+                        q.save()
+                        socer, created = Socer.objects.get_or_create(exercises=q.exercise, user=q.user)
+                        if socer.score_received:
                             if socer.score_received < a.validated_data["score_received"]:
                                 socer.score_received = a.validated_data["score_received"]
                                 socer.save()
-                        return Response('not cant send answer', status=status.HTTP_400_BAD_REQUEST)
-                    if q.exercise.is_group:
-                        l = AnswersModel.objects.filter(group=q.group).count()
-                        if l < q.exercise.limit_send:
-                            if q.group:
+                        else:
+                            socer.score_received = a.validated_data["score_received"]
+                            socer.save()
+
+                        return Response('save score', status=status.HTTP_201_CREATED)
+                    if q.exercise.is_group == True:
+                        q.score_received = int(a.validated_data["score_received"])
+                        q.bazkhord = b
+                        q.save()
+                        if q.group:
                                 g = q.group.user.all()
                                 for i in g:
                                     GroupAssignment.objects.create(group=q.group,user=i,score_received=a.validated_data["score_received"])
-                                    socer, created = Socer.objects.get_or_create(exercise=q.exercise.exercise, user=i)
-                                    if socer.score_received < a.validated_data["score_received"]:
-                                        socer.score_received = a.validated_data["score_received"]
-                                        socer.save()
+                                    socer, created = Socer.objects.get_or_create(exercises=q.exercise, user=i)
+                                    if socer.score_received :
+                                        if socer.score_received < a.validated_data["score_received"]:
+                                            socer.score_received = a.validated_data["score_received"]
+                                            socer.save()
+                                    socer.score_received = a.validated_data["score_received"]
+                                    socer.save()
                                 return Response(data=a.data, status=status.HTTP_201_CREATED)
-                        return Response('not cant send answer', status=status.HTTP_400_BAD_REQUEST)
                     return Response("Group not found", status=status.HTTP_404_NOT_FOUND)
 
             return Response(data=a.errors, status=status.HTTP_404_NOT_FOUND)
         return Response("not allowed", status=status.HTTP_404_NOT_FOUND)
-
+class EditSocerUserGroupView(APIView):
     def put(self, request, id_a):
         try:
             qq = AnswersModel.objects.get(id=id_a)
@@ -349,21 +387,16 @@ class SocerTextAnswer(APIView):
         score = request.data.get('score')
         if not name or score is None:
             return Response("Both 'name' and 'score' must be provided", status=status.HTTP_400_BAD_REQUEST)
-
         q = GroupAssignment.objects.filter(group=qq.group)
-
         try:
-
             n = q.get(user=name)
         except GroupAssignment.DoesNotExist:
             return Response("User not found in group", status=status.HTTP_404_NOT_FOUND)
-
         n.score_received = score
         n.save()
         s = Socer.objects.get(exercises=qq.exercise,user=name)
         s.score_received = score
         s.save()
-
         return Response(status=status.HTTP_200_OK)
 
 
@@ -465,20 +498,20 @@ class RankingView(APIView):
 
 
 class RezscoreUser(APIView):
-
+    permission_classes = [IsAuthenticated]
     def get(self, request, e_id):
         sub = SubCriteria.objects.filter(exercise_id=e_id)
         if sub.exists():
-            s = Rezserilazers(data=request.data)
+            s = AnswerTextSerializer2(instance=sub,many=True)
             return Response(s.data,status=status.HTTP_200_OK)
         return Response({'error': 'Sub does not exist'}, status=status)
 
 
     def post(self, request, e_id):
         sub = SubCriteria.objects.filter(exercise_id=e_id)
-        a = AnswersModel.objects.get(exercise_id = request.data['answer_id'])
+        a = AnswersModel.objects.get(id=request.data['answer_id'])
         if sub.exists():
-            RezScore.objects.create(user=a.user, score=request.data['score'],sub=request.data['sub'])
+            RezScore.objects.create(user=a.user, score=request.data['score'],sub_id=request.data['sub'])
             return Response(status=status.HTTP_201_CREATED)
         return Response({'error': 'Sub does not exist'}, status=status)
 
