@@ -1,0 +1,1060 @@
+{
+	"info": {
+		"_postman_id": "93c50aa0-1329-4c63-ae62-38e2e4e38b7e",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34266068"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"ali\",\r\n    \"password\": \"MAHKAT\",\r\n    \"password2\": \"MAHKAT\",\r\n    \"phone_number\": \"09123232106\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/accounts/Register",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"accounts",
+						"Register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "optcoderejester",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code\": 5422\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/accounts/optcode",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"accounts",
+						"optcode"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edite and removclass",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NDM4MTYyLCJpYXQiOjE3Mjg1NzQxNjIsImp0aSI6Ijc2ZDEzNTU4YWMwNzQ1ZjRiNGU3NGZkOGQ5OTgzNDE1IiwidXNlcl9pZCI6M30.CVxq3tkg_QdqIUgbNROlEy_8epJ2tviTq1pNPfox-d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"id_class\":1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/accounts/profile",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"accounts",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "activ",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NDM4MTYyLCJpYXQiOjE3Mjg1NzQxNjIsImp0aSI6Ijc2ZDEzNTU4YWMwNzQ1ZjRiNGU3NGZkOGQ5OTgzNDE1IiwidXNlcl9pZCI6M30.CVxq3tkg_QdqIUgbNROlEy_8epJ2tviTq1pNPfox-d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/accounts/profilesocer",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"accounts",
+						"profilesocer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createclass",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NDM4MTYyLCJpYXQiOjE3Mjg1NzQxNjIsImp0aSI6Ijc2ZDEzNTU4YWMwNzQ1ZjRiNGU3NGZkOGQ5OTgzNDE1IiwidXNlcl9pZCI6M30.CVxq3tkg_QdqIUgbNROlEy_8epJ2tviTq1pNPfox-d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": 2,\r\n    \"name\":\"mqod\",\r\n    \"description\": \"python and django\",\r\n    \"stock\":10,\r\n    \"is_email\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/class/class",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"class",
+						"class"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add public class",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NDM4MTYyLCJpYXQiOjE3Mjg1NzQxNjIsImp0aSI6Ijc2ZDEzNTU4YWMwNzQ1ZjRiNGU3NGZkOGQ5OTgzNDE1IiwidXNlcl9pZCI6M30.CVxq3tkg_QdqIUgbNROlEy_8epJ2tviTq1pNPfox-d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/class/addpublic/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"class",
+						"addpublic",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add list privert",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NDM4MTYyLCJpYXQiOjE3Mjg1NzQxNjIsImp0aSI6Ijc2ZDEzNTU4YWMwNzQ1ZjRiNGU3NGZkOGQ5OTgzNDE1IiwidXNlcl9pZCI6M30.CVxq3tkg_QdqIUgbNROlEy_8epJ2tviTq1pNPfox-d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\": [1,2]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/class/adduser/11",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"class",
+						"adduser",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add class by email",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NDM4MTYyLCJpYXQiOjE3Mjg1NzQxNjIsImp0aSI6Ijc2ZDEzNTU4YWMwNzQ1ZjRiNGU3NGZkOGQ5OTgzNDE1IiwidXNlcl9pZCI6M30.CVxq3tkg_QdqIUgbNROlEy_8epJ2tviTq1pNPfox-d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/class/addprivete/11/7011",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"class",
+						"addprivete",
+						"11",
+						"7011"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add reznomreh",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NDM4MTYyLCJpYXQiOjE3Mjg1NzQxNjIsImp0aSI6Ijc2ZDEzNTU4YWMwNzQ1ZjRiNGU3NGZkOGQ5OTgzNDE1IiwidXNlcl9pZCI6M30.CVxq3tkg_QdqIUgbNROlEy_8epJ2tviTq1pNPfox-d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"q\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/class/subCreateclass/11",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"class",
+						"subCreateclass",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adds ta and techers",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NDM4MTYyLCJpYXQiOjE3Mjg1NzQxNjIsImp0aSI6Ijc2ZDEzNTU4YWMwNzQ1ZjRiNGU3NGZkOGQ5OTgzNDE1IiwidXNlcl9pZCI6M30.CVxq3tkg_QdqIUgbNROlEy_8epJ2tviTq1pNPfox-d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"teacher\": [1,2]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/class/adds/10",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"class",
+						"adds",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edite class and remove student",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NDM4MTYyLCJpYXQiOjE3Mjg1NzQxNjIsImp0aSI6Ijc2ZDEzNTU4YWMwNzQ1ZjRiNGU3NGZkOGQ5OTgzNDE1IiwidXNlcl9pZCI6M30.CVxq3tkg_QdqIUgbNROlEy_8epJ2tviTq1pNPfox-d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/class/Edite/11",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"class",
+						"Edite",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create exe",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NDM4MTYyLCJpYXQiOjE3Mjg1NzQxNjIsImp0aSI6Ijc2ZDEzNTU4YWMwNzQ1ZjRiNGU3NGZkOGQ5OTgzNDE1IiwidXNlcl9pZCI6M30.CVxq3tkg_QdqIUgbNROlEy_8epJ2tviTq1pNPfox-d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"mahantest\",\r\n    \"description\":\"test1\",\r\n    \"score\":100,\r\n    \"answer_format\":\"1\",\r\n    \"add\":true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/exercise/create/11",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"exercise",
+						"create",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "inbox ex",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NDM4MTYyLCJpYXQiOjE3Mjg1NzQxNjIsImp0aSI6Ijc2ZDEzNTU4YWMwNzQ1ZjRiNGU3NGZkOGQ5OTgzNDE1IiwidXNlcl9pZCI6M30.CVxq3tkg_QdqIUgbNROlEy_8epJ2tviTq1pNPfox-d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ide\":1,\r\n    \"class\":11\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/exercise/inbox",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"exercise",
+						"inbox"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "subsore",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NDM4MTYyLCJpYXQiOjE3Mjg1NzQxNjIsImp0aSI6Ijc2ZDEzNTU4YWMwNzQ1ZjRiNGU3NGZkOGQ5OTgzNDE1IiwidXNlcl9pZCI6M30.CVxq3tkg_QdqIUgbNROlEy_8epJ2tviTq1pNPfox-d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"mahan\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/exercise/score/15",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"exercise",
+						"score",
+						"15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edite exer",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NDM4MTYyLCJpYXQiOjE3Mjg1NzQxNjIsImp0aSI6Ijc2ZDEzNTU4YWMwNzQ1ZjRiNGU3NGZkOGQ5OTgzNDE1IiwidXNlcl9pZCI6M30.CVxq3tkg_QdqIUgbNROlEy_8epJ2tviTq1pNPfox-d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 15,\r\n    \"name\": \"mahantest\",\r\n    \"description\": \"nahan\",\r\n    \"limit_time\": null,\r\n    \"limit_send\": null,\r\n    \"score\": 100,\r\n    \"nsocre\": null,\r\n    \"is_group\": false,\r\n    \"answer_format\": \"1\",\r\n    \"penalty_time\": null,\r\n    \"penalty_score\": null,\r\n    \"available\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/exercise/edit/15",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"exercise",
+						"edit",
+						"15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create group m",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NDM4MTYyLCJpYXQiOjE3Mjg1NzQxNjIsImp0aSI6Ijc2ZDEzNTU4YWMwNzQ1ZjRiNGU3NGZkOGQ5OTgzNDE1IiwidXNlcl9pZCI6M30.CVxq3tkg_QdqIUgbNROlEy_8epJ2tviTq1pNPfox-d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"list_id\": [\r\n       1,2\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/exercise/groupm/15",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"exercise",
+						"groupm",
+						"15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "submit answer",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NDM4MTYyLCJpYXQiOjE3Mjg1NzQxNjIsImp0aSI6Ijc2ZDEzNTU4YWMwNzQ1ZjRiNGU3NGZkOGQ5OTgzNDE1IiwidXNlcl9pZCI6M30.CVxq3tkg_QdqIUgbNROlEy_8epJ2tviTq1pNPfox-d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "answer_format",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"description": "iran",
+							"type": "file",
+							"src": "postman-cloud:///1ef6eb9d-6bbc-4610-b607-0b0f3a57e94d"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/exercise/submitanswer/16",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"exercise",
+						"submitanswer",
+						"16"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "juge",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NDM4MTYyLCJpYXQiOjE3Mjg1NzQxNjIsImp0aSI6Ijc2ZDEzNTU4YWMwNzQ1ZjRiNGU3NGZkOGQ5OTgzNDE1IiwidXNlcl9pZCI6M30.CVxq3tkg_QdqIUgbNROlEy_8epJ2tviTq1pNPfox-d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code\":\"a=int(input())\\nb=int(input())\\nprint(a+b)\",\r\n    \"language\":\"python2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/exercise/answercreateJuge/22",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"exercise",
+						"answercreateJuge",
+						"22"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "all answer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/exercise/answer/15",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"exercise",
+						"answer",
+						"15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Manual scoring",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NDM4MTYyLCJpYXQiOjE3Mjg1NzQxNjIsImp0aSI6Ijc2ZDEzNTU4YWMwNzQ1ZjRiNGU3NGZkOGQ5OTgzNDE1IiwidXNlcl9pZCI6M30.CVxq3tkg_QdqIUgbNROlEy_8epJ2tviTq1pNPfox-d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"score_received\":50,\r\n    \"bazkhord\":\"ok\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/exercise/ansertext/6",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"exercise",
+						"ansertext",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EditSocerUserGroupView",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":1,\r\n    \"score\":3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/exercise/EditSocerUserGroupView/6",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"exercise",
+						"EditSocerUserGroupView",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rez score",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NDM4MTYyLCJpYXQiOjE3Mjg1NzQxNjIsImp0aSI6Ijc2ZDEzNTU4YWMwNzQ1ZjRiNGU3NGZkOGQ5OTgzNDE1IiwidXNlcl9pZCI6M30.CVxq3tkg_QdqIUgbNROlEy_8epJ2tviTq1pNPfox-d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"answer_id\":3,\r\n    \"sub\":2,\r\n    \"score\":5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/exercise/RezscoreUser/15",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"exercise",
+						"RezscoreUser",
+						"15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "all socer in class",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NDM4MTYyLCJpYXQiOjE3Mjg1NzQxNjIsImp0aSI6Ijc2ZDEzNTU4YWMwNzQ1ZjRiNGU3NGZkOGQ5OTgzNDE1IiwidXNlcl9pZCI6M30.CVxq3tkg_QdqIUgbNROlEy_8epJ2tviTq1pNPfox-d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/accounts/GetSocerINclass/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"accounts",
+						"GetSocerINclass",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "rank and group auto",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NDM4MTYyLCJpYXQiOjE3Mjg1NzQxNjIsImp0aSI6Ijc2ZDEzNTU4YWMwNzQ1ZjRiNGU3NGZkOGQ5OTgzNDE1IiwidXNlcl9pZCI6M30.CVxq3tkg_QdqIUgbNROlEy_8epJ2tviTq1pNPfox-d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"num\":2,\r\n    \"id_e\":21\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/exercise/rank/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"exercise",
+						"rank",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NDM4MTYyLCJpYXQiOjE3Mjg1NzQxNjIsImp0aSI6Ijc2ZDEzNTU4YWMwNzQ1ZjRiNGU3NGZkOGQ5OTgzNDE1IiwidXNlcl9pZCI6M30.CVxq3tkg_QdqIUgbNROlEy_8epJ2tviTq1pNPfox-d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"slamsss\",\r\n    \"question_text\":\"iran\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/forum/questions/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"forum",
+						"questions",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "answer f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5NDM4MTYyLCJpYXQiOjE3Mjg1NzQxNjIsImp0aSI6Ijc2ZDEzNTU4YWMwNzQ1ZjRiNGU3NGZkOGQ5OTgzNDE1IiwidXNlcl9pZCI6M30.CVxq3tkg_QdqIUgbNROlEy_8epJ2tviTq1pNPfox-d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"answers\": \"ali\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/forum/answers/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"forum",
+						"answers",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
