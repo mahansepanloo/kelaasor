@@ -42,6 +42,15 @@ class AnswerQuestionCreateView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response('not accessible', status=status.HTTP_400_BAD_REQUEST)
 
+    def put(self,request,id_q):
+        item = Answer.objects.get(question_id=id_q,user=self.request.user)
+        serializer = AnswerSerializer(instance=item,data=request.data,partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 
 
