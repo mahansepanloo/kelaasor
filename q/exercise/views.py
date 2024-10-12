@@ -402,6 +402,15 @@ class EditSocerUserGroupView(APIView):
 
 
 
+
+def groupauto(input_list: list, num: int):
+    ln = [[] for _ in range(num)]
+    sums = [0] * num
+    for item in input_list:
+        min_index = sums.index(min(sums))
+        ln[min_index].append(item)
+        sums[min_index] += item[0]
+    return(ln)
 class RankingView(APIView):
         permission_classes = [IsAuthenticated,IsJoinable]
         def get(self, request, id_class):
@@ -432,13 +441,23 @@ class RankingView(APIView):
                     .filter(exercises__classs=some_class)
                     .values('user__username', 'user')
                     .annotate(total_score=Sum('score_received'))
-                    .order_by('total_score')
+                    .order_by('-total_score')
                 )
 
 
-                print(socer_list.values_list("total_score","user_id"))
-                # num_groups = request.data['num']
-                return Response({'error': 'Class not found'}, status=status.HTTP_404_NOT_FOUND)
+                l=(socer_list.values_list("total_score","user_id"))
+                num_groups = request.data['num']
+                if int(num_groups)*2 > len(l):
+                    return Response("cant",status=status.HTTP_400_BAD_REQUEST)
+                a = groupauto(l,int(num_groups))
+                converted_list = [[item[1] for item in group] for group in a]
+                for group in converted_list:
+                    new_group = Group.objects.create(exercise_id=request.data['id_e'])
+                    for user_id in group:
+                        user = User.objects.get(id=user_id)
+                        new_group.user.add(user)
+                return Response(status=status.HTTP_201_CREATED)
+
 
 
 class RezscoreUser(APIView):
