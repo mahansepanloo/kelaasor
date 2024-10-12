@@ -88,6 +88,7 @@ class RankSerilazers(serializers.ModelSerializer):
         fields = "__all__"
 
 class Rezserilazers(serializers.ModelSerializer):
+    sub = serializers.CharField(source='sub.name')
     class Meta:
         model = RezScore
         fields = "__all__"

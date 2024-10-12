@@ -8,7 +8,8 @@ class QuestionSerializer(serializers.ModelSerializer):
         fields = '__all__'
         extra_kwargs = {
             "user": {"required": False},
-            'classs': {"required": False}
+            'classs': {"required": False},
+            "title": {"required": False}
         }
     def get_answers(self,obj):
             a = obj.qanswer.all()

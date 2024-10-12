@@ -13,7 +13,7 @@ urlpatterns = [
     path('ansertext/<int:id_a>', views.SocerTextAnswer.as_view(), name="SocerTextAnswer"),
     path('submitanswer/<int:id_q>', views.SubmitAnswer.as_view(), name='submit'),
     path('answercreateJuge/<int:id_a>',views.AnswerCreateJuge.as_view()),
-    path('rank/<int:class_id>', views.RankingView.as_view(), name='subcriteria_list'),
+    path('rank/<int:id_class>', views.RankingView.as_view(), name='subcriteria_list'),
     path('Download/<int:file>',views.Download.as_view()),
     path('EditSocerUserGroupView/<int:id_a>',views.EditSocerUserGroupView.as_view()),
     path("RezscoreUser/<int:e_id>",views.RezscoreUser.as_view(), name="RezscoreUser")

@@ -183,7 +183,7 @@ class EditUser(APIView):
 
 
 
-
+from exercise.serializer import *
 class UserSocer(APIView):
     """
     Retrieves exercises related to the user in a specified class.
@@ -196,12 +196,17 @@ class UserSocer(APIView):
         Response: Returns exercise data or error if exercises or class are not found.
     """
     permission_classes = [IsAuthenticated]
-    def get(self, request, class_id):
-        try:
-            socers = Socer.objects.filter(classs_id=class_id, user=request.user)
-            s = ExerciseSerializer(instance=socers, many=True)
-            rezsocer = RezScore.objects.filter(user=request.user, sub__exercise__classs_id=class_id)
-            ss = ExerciseSerializer4(instance=rezsocer,many=True)
-        except ExerciseModel.DoesNotExist:
-            return Response({'error': 'Exercise not found'}, status=status.HTTP_404_NOT_FOUND)
-        return Response(data=(s.data,ss.data))
+    def get(self, request):
+        socer = Socer.objects.filter(user=request.user)
+        rez = RezScore.objects.filter(user=request.user)
+        r = Rezserilazers(instance=rez,many=True)
+        s = RankSerilazers(instance=socer,many=True)
+        return Response(data=(r.data,s.data),status=status.HTTP_200_OK)
+
+class GetSocerINclass(APIView):
+    def get(self, request,id_class):
+        socer = Socer.objects.filter(exercises__classs__id=id_class,user=request.user)
+        s = RankSerilazers(instance=socer,many=True)
+        return Response(data=(s.data),status=status.HTTP_200_OK)
+
+

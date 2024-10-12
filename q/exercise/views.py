@@ -400,40 +400,13 @@ class EditSocerUserGroupView(APIView):
         return Response(status=status.HTTP_200_OK)
 
 
-def group_students(socer_list, num_groups):
-                sorted_socers = sorted(socer_list, key=lambda s: s['total_score'], reverse=True)
 
-                groups = [[] for _ in range(num_groups)]
-
-                for index, socer in enumerate(sorted_socers):
-                    group_index = index % num_groups
-                    groups[group_index].append(socer)
-
-                return groups
 
 class RankingView(APIView):
-    # def get(self, request, class_id):
-        # try:
-        #     some_class = Classs.objects.get(id=class_id)
-        #     socer_list = some_class.socer.all()
-        #
-        #     ranked_scores = sorted(
-        #         [(socer.user.username, socer.score_received) for socer in socer_list if
-        #          socer.score_received is not None],
-        #         key=lambda x: x[1],
-        #         reverse=True
-        #     )
-        #
-        #     ranked_scores_with_ranks = [{'rank': rank + 1, 'username': score[0], 'score': score[1]}
-        #                                 for rank, score in enumerate(ranked_scores)]
-        #
-        #     return Response(ranked_scores_with_ranks, status=status.HTTP_200_OK)
-        # except Classs.DoesNotExist:
-        #     return Response({'error': 'Class not found'}, status=status.HTTP_404_NOT_FOUND)
         permission_classes = [IsAuthenticated,IsJoinable]
-        def get(self, request, class_id):
+        def get(self, request, id_class):
             try:
-                some_class = Classs.objects.get(id=class_id)
+                some_class = Classs.objects.get(id=id_class)
 
                 socer_list = (
                     Socer.objects
@@ -451,50 +424,21 @@ class RankingView(APIView):
             except Classs.DoesNotExist:
                 return Response({'error': 'Class not found'}, status=status.HTTP_404_NOT_FOUND)
 
-        def post(self, request, class_id):
-            try:
-                some_class = Classs.objects.get(id=class_id)
+        def post(self, request, id_class):
+
+                some_class = Classs.objects.get(id=id_class)
                 socer_list = (
                     Socer.objects
                     .filter(exercises__classs=some_class)
                     .values('user__username', 'user')
                     .annotate(total_score=Sum('score_received'))
-                    .order_by('-total_score')
+                    .order_by('total_score')
                 )
 
-                ranked_scores_with_ranks = [
-                    {'username': socer['user__username'], 'user_id': socer['user'],
-                     'total_score': socer['total_score']}
-                    for socer in socer_list
-                ]
 
-                num_groups = request.data['num']
-                grouped_socers = group_students(ranked_scores_with_ranks, num_groups)
-
-                exercise = ExerciseModel.objects.get(id=request.data['id_e'])
-                for group_members in grouped_socers:
-                    group = Group.objects.create(exercise=exercise)
-                    for member in group_members:
-                        user = User.objects.get(id=member['user_id'])
-                        group.users.add(user)
-
-                return Response(grouped_socers, status=status.HTTP_200_OK)
-            except Classs.DoesNotExist:
+                print(socer_list.values_list("total_score","user_id"))
+                # num_groups = request.data['num']
                 return Response({'error': 'Class not found'}, status=status.HTTP_404_NOT_FOUND)
-            except Exception as e:
-                return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 class RezscoreUser(APIView):

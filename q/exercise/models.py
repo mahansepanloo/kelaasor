@@ -113,6 +113,8 @@ class Socer(models.Model):#امتیاز نهایی
     def save(self, *args, **kwargs):
         self.classs = self.exercises.classs
         super(Socer, self).save(*args, **kwargs)
+    def __str__(self):
+        return self.user.username
 
 
 

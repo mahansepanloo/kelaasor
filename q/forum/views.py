@@ -21,7 +21,8 @@ class QuestionListCreateView(generics.ListCreateAPIView):
     search_fields = ['title', 'question_text']
 
     def perform_create(self, serializer):
-        return serializer.save(classs_id=self.kwargs.get('id_class'),user=self.request.user)
+        title = serializer.validated_data.get('title', serializer.validated_data.get('question_text')[0:20])
+        return serializer.save(classs_id=self.kwargs.get('id_class'),user=self.request.user,title=title)
 
     def get_queryset(self):
         id_class = self.kwargs.get('id_class')
