@@ -1,5 +1,7 @@
 from datetime import timedelta
-
+import environ
+env = environ.Env()
+environ.Env.read_env(".env")
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -10,12 +12,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-lza%7g6pazs195yct8l0vpz)ol!+4lqx2g(%p^4efnym&d1&8u"
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 
 
 # Application definition
@@ -74,9 +76,9 @@ WSGI_APPLICATION = "q.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "q",
-        'USER': 'postgres',
-        'PASSWORD': 'MAHKAT@78',
+        'NAME': env("DATABASE_NAME"),
+        'USER': env("DATABASE_USER"),
+        'PASSWORD': env("DATABASE_PASSWORD"),
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -156,7 +158,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "msepanloooo@gmail.com"
-EMAIL_HOST_PASSWORD = 'uskw wfzl vbxd yipi'
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 
 
 MEDIA_URL = '/media/'
