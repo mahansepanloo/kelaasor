@@ -405,11 +405,13 @@ class EditSocerUserGroupView(APIView):
 
 def groupauto(input_list: list, num: int):
     ln = [[] for _ in range(num)]
-    sums = [0] * num
+    sums = [-(len(input_list))] * num
+    l = len(input_list)
     for item in input_list:
-        min_index = sums.index(min(sums))
-        ln[min_index].append(item)
-        sums[min_index] += item[0]
+        a = sums.index(min(sums))
+        ln[a].append(item)
+        sums[a] += l
+        l -= 1
     return(ln)
 class RankingView(APIView):
         permission_classes = [IsAuthenticated,IsJoinable]
@@ -445,13 +447,12 @@ class RankingView(APIView):
                 )
 
 
-                l=(socer_list.values_list("total_score","user_id"))
+                l = list(socer_list.values_list('user', flat=True))
                 num_groups = request.data['num']
                 if int(num_groups)*2 > len(l):
                     return Response("cant",status=status.HTTP_400_BAD_REQUEST)
                 a = groupauto(l,int(num_groups))
-                converted_list = [[item[1] for item in group] for group in a]
-                for group in converted_list:
+                for group in a:
                     new_group = Group.objects.create(exercise_id=request.data['id_e'])
                     for user_id in group:
                         user = User.objects.get(id=user_id)
