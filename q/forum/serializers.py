@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import Question, Answer
 
 class QuestionSerializer(serializers.ModelSerializer):
-    answers = serializers.SerializerMethodField()
+    # answers = serializers.SerializerMethodField()
     class Meta:
         model = Question
         fields = '__all__'
@@ -11,9 +11,9 @@ class QuestionSerializer(serializers.ModelSerializer):
             'classs': {"required": False},
             "title": {"required": False}
         }
-    def get_answers(self,obj):
-            a = obj.qanswer.all()
-            return AnswerSerializer(instance=a, many=True).data
+    # def get_answers(self,obj):
+    #         a = obj.qanswer.all()
+    #         return AnswerSerializer(instance=a, many=True).data
 
 class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
@@ -23,6 +23,11 @@ class AnswerSerializer(serializers.ModelSerializer):
             "user": {"required": False},
             'question': {"required": False}
         }
+
+class CreatERateSerializer(serializers.Serializer):
+    rate = serializers.IntegerField()
+
+
 
 
 

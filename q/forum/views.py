@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import filters, status
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
-from .models import Question, Answer
+from .models import Question, Answer,Rate
 from .serializers import QuestionSerializer, AnswerSerializer
 from rest_framework.views import APIView
 from .permissions import *
@@ -50,7 +50,40 @@ class AnswerQuestionCreateView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+from django.db.models import Avg
+class ShowQ(APIView):
+    permission_classes = [IsAuthenticated, IsJoinable]
+    def get(self, request,id_class,id_q):
+        item = Answer.objects.filter(question_id=id_q)
+        serializer = AnswerSerializer(instance=item, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
+
+
+
+    def post(self, request,id_class,id_q):
+        item = Answer.objects.get(question_id=id_q,id=request.data.get('id'))
+        try:
+            f = Rate.objects.get(answer = item, user = request.user )
+            return Response('can not rate')
+        except Rate.DoesNotExist:
+            Rate.objects.create(answer=item, user=request.user)
+            item.rate += 1
+            item.save()
+            serializer = AnswerSerializer(instance=item)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def delete(self,request,id_class,id_q):
+        item = Answer.objects.get(question_id=id_q,id=request.data.get('id'))
+        try:
+            f = Rate.objects.get(answer=item, user=request.user)
+            f.delete()
+            item.rate += 1
+            item.save()
+            serializer = AnswerSerializer(instance=item)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Rate.DoesNotExist:
+            return Response("can not delete")
 
 
 

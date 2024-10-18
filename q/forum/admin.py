@@ -8,3 +8,6 @@ class QuestionAdmin(admin.ModelAdmin):
 class AnswerAdmin(admin.ModelAdmin):
     pass
 
+# @admin.register(Rate)
+# class AnswerAdmin(admin.ModelAdmin):
+#     pass

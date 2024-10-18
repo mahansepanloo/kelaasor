@@ -1,7 +1,7 @@
 from django.db import models
 from accounts.models import User
 from classs.models import Classs
-
+from django.core.validators import MaxValueValidator,MinValueValidator
 
 
 class Question(models.Model):
@@ -17,7 +17,31 @@ class Answer(models.Model):
     question = models.ForeignKey(Question,on_delete=models.CASCADE,related_name='qanswer')
     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='uanswer')
     answers = models.TextField()
-    replay = models.ForeignKey('self',on_delete=models.CASCADE,related_name='areplay',null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    rate = models.IntegerField(default=0)
+
+    class Meta:
+        ordering = ('-rate',)
 
 
+    # def average_rate(self):
+    #     rates = self.rrate.all()
+    #     total = sum(rate.get_rate() for rate in rates)
+    #     count = rates.count()
+    #     return total / count if count > 0 else 0
+
+
+
+# class Rate(models.Model):
+#     answer = models.ForeignKey(Answer,on_delete=models.CASCADE,related_name='rrate')
+#     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='urate')
+#     rate = models.IntegerField(validators=[MaxValueValidator(10), MinValueValidator(0)],default=0)
+#     def get_rate(self):
+#         return self.rate
+
+
+
+
+class Rate(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='rrate')
+    answer = models.ForeignKey(Answer,on_delete=models.CASCADE,related_name='rrate')
