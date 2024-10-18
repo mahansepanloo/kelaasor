@@ -205,8 +205,18 @@ class UserSocer(APIView):
 
 class GetSocerINclass(APIView):
     def get(self, request,id_class):
-        socer = Socer.objects.filter(exercises__classs__id=id_class,user=request.user)
-        s = RankSerilazers(instance=socer,many=True)
-        return Response(data=(s.data),status=status.HTTP_200_OK)
+        e = ExerciseModel.objects.filter(classs_id=id_class)
+        socer = Socer.objects.filter(user=request.user,exercises__in = e)
+        r = RezScore.objects.filter(user=request.user,sub__exercise__in = e)
+        rs = Rezserilazers(instance=r,many=True)
+        ss = RankSerilazers(instance=socer,many=True)
+        return Response(data=(rs.data,ss.data),status=status.HTTP_200_OK)
+
+
+
+
+
+
+
 
 
