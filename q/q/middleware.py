@@ -24,7 +24,6 @@ class LoggerMiddleware:
             "host": request.get_host(),
         })
 
-        # Writing the log
         try:
             with open('loggers.log', "a") as f:
                 f.write(f"{self.activate}\n")
