@@ -1,0 +1,15 @@
+{'ip': '127.0.0.1', 'user': 'AnonymousUser', 'view': 'admin:login (login)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'AnonymousUser', 'view': 'admin:login (login)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'AnonymousUser', 'view': 'admin:login (login)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'AnonymousUser', 'view': 'admin:login (login)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'anonymous', 'view': 'admin:index (index)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'anonymous', 'view': 'admin:accounts_user_changelist (accounts_user_changelist)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'anonymous', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'anonymous', 'view': 'admin:accounts_user_change (accounts_user_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'anonymous', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:accounts_user_change (accounts_user_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:accounts_user_change (accounts_user_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:auth_group_changelist (auth_group_changelist)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
