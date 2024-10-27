@@ -15,6 +15,8 @@ class Question(models.Model):
 
 class Answer(models.Model):
     question = models.ForeignKey(Question,on_delete=models.CASCADE,related_name='qanswer')
+    reply = models.ForeignKey('self',on_delete=models.CASCADE,related_name='ranswer',null=True,blank=True)
+    is_reply = models.BooleanField(default=False)
     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='uanswer')
     answers = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

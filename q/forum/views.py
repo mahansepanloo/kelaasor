@@ -49,6 +49,24 @@ class AnswerQuestionCreateView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+class Replyanswer(APIView):
+    permission_classes = [IsAuthenticated]
+    def post(self,request,id_a,id_q):
+        item = Question.objects.get(pk=self.kwargs.get('id_q'))
+        if (self.request.user in item.classs.teacher.all() or self.request.user in item.classs.ta.all() or
+                self.request.user in item.classs.user.all()):
+            answers = Answer.objects.get(question = item, id = id_a)
+            serializer = AnswerSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save(question=item, user=self.request.user, is_reply = True, reply = answers)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response('not accessible', status=status.HTTP_400_BAD_REQUEST)
+
+
+
 
 from django.db.models import Avg
 class ShowQ(APIView):
@@ -78,7 +96,7 @@ class ShowQ(APIView):
         try:
             f = Rate.objects.get(answer=item, user=request.user)
             f.delete()
-            item.rate += 1
+            item.rate -= 1
             item.save()
             serializer = AnswerSerializer(instance=item)
             return Response(serializer.data, status=status.HTTP_200_OK)

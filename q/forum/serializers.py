@@ -22,6 +22,7 @@ class AnswerSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             "user": {"required": False},
             'question': {"required": False}
+
         }
 
 class CreatERateSerializer(serializers.Serializer):

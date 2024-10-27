@@ -13,3 +13,57 @@
 {'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
 {'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:auth_group_changelist (auth_group_changelist)', 'host': '127.0.0.1:8000'}
 {'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'No view associated', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'No view associated', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:index (index)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:classs_classs_changelist (classs_classs_changelist)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:classs_classs_change (classs_classs_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'classs:CreateClass (CreateClass)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'No view associated', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'No view associated', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'accounts:register (register)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'No view associated', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'accounts:login (login)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'accounts:login (login)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'classs:CreateClass (CreateClass)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:index (index)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:classs_classs_changelist (classs_classs_changelist)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:classs_listuserprivet_changelist (classs_listuserprivet_changelist)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:classs_classs_changelist (classs_classs_changelist)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:classs_classs_change (classs_classs_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'classs:CreateClass (CreateClass)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'classs:CreateClass (CreateClass)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'classs:CreateClass (CreateClass)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:classs_listuserprivet_changelist (classs_listuserprivet_changelist)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:classs_classs_change (classs_classs_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:classs_classs_changelist (classs_classs_changelist)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:classs_classs_change (classs_classs_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:classs_classs_changelist (classs_classs_changelist)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:classs_classs_change (classs_classs_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:classs_classs_change (classs_classs_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:classs_classs_changelist (classs_classs_changelist)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:accounts_user_changelist (accounts_user_changelist)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:accounts_user_change (accounts_user_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'classs:AdduserPrivet (AdduserPrivet)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'classs:AdduserPrivet (AdduserPrivet)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'classs:AddPrivateEmailClass (AddPrivateEmailClass)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:ShowQ (ShowQ)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'classs:AddPrivateEmailClass (AddPrivateEmailClass)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:ShowQ (ShowQ)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:ShowQ (ShowQ)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:reply-detail (reply-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:reply-detail (reply-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:reply-detail (reply-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:ShowQ (ShowQ)', 'host': '127.0.0.1:8000'}
