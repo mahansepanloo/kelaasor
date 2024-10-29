@@ -480,3 +480,28 @@ class RezscoreUser(APIView):
         return Response({'error': 'Sub does not exist'}, status=status)
 
 
+class AddTask(APIView):
+    def get(self, request, e_id):
+        try:
+            sub = ExerciseModel.objects.get(id=e_id)
+            tasks = Test.objects.filter(exercise = sub)
+        except ExerciseModel.DoesNotExist:
+            return Response({'error': 'Exercise not found'}, status=status.HTTP_404_NOT_FOUND)
+        if request.user in sub.classs.ta.all() or request.user in sub.classs.teacher.all():
+            serializer = Taskserlazers(instance=tasks,many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response("not accsess",status=status.HTTP_403_FORBIDDEN)
+    def post(self,request,e_id):
+        try:
+            sub = ExerciseModel.objects.get(id=e_id)
+        except ExerciseModel.DoesNotExist:
+            return Response({'error': 'Exercise not found'}, status=status.HTTP_404_NOT_FOUND)
+        if request.user in sub.classs.ta.all() or request.user in sub.classs.teacher.all():
+            serializer = Taskserlazers(data=request.data)
+            if serializer.is_valid():
+                a = serializer.validated_data.get('inputs')
+                z = a.replace(" ","\r\n")
+                serializer.save(exercise = sub,user=request.user,inputs=z)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response("not accsess",status=status.HTTP_403_FORBIDDEN)

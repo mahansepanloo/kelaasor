@@ -92,3 +92,14 @@ class Rezserilazers(serializers.ModelSerializer):
     class Meta:
         model = RezScore
         fields = "__all__"
+
+
+class Taskserlazers(serializers.ModelSerializer):
+    class Meta:
+        model = Test
+        fields = "__all__"
+        extra_kwargs = {
+            'user': {'required': False},
+            'exercise':{'required': False}
+        }
+

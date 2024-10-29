@@ -16,6 +16,7 @@ urlpatterns = [
     path('rank/<int:id_class>', views.RankingView.as_view(), name='subcriteria_list'),
     path('Download/<int:file>',views.Download.as_view()),
     path('EditSocerUserGroupView/<int:id_a>',views.EditSocerUserGroupView.as_view()),
-    path("RezscoreUser/<int:e_id>",views.RezscoreUser.as_view(), name="RezscoreUser")
+    path("RezscoreUser/<int:e_id>",views.RezscoreUser.as_view(), name="RezscoreUser"),
+    path("addtask/<int:e_id>",views.AddTask.as_view(), name="task")
 
 ]
