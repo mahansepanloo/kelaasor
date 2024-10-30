@@ -68,14 +68,18 @@ class Replyanswer(APIView):
 
 
 
-from django.db.models import Avg
 class ShowQ(APIView):
     permission_classes = [IsAuthenticated, IsJoinable]
     def get(self, request,id_class,id_q):
         item = Answer.objects.filter(question_id=id_q)
         serializer = AnswerSerializer(instance=item, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
+    def delete(self,request,id_class,id_q):
+        item = Question.objects.get(question_id=id_q)
+        if request.user == item.user or request.user in item.classs.teacher.all() or request.user in item.classs.ta.all():
+            item.delete()
+            return Response('deleted', status=status.HTTP_200_OK)
+        return Response('nor accesss')
 
 
 
