@@ -20,8 +20,8 @@ class AnswerSerializer(serializers.ModelSerializer):
         model = Answer
         fields = '__all__'
         extra_kwargs = {
-            "user": {"required": False},
-            'question': {"required": False}
+            "user": {"required": False, "read_only": True},
+            'question': {"required": False, "read_only": True},
 
         }
 

@@ -42,13 +42,24 @@ class AnswerQuestionCreateView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response('not accessible', status=status.HTTP_400_BAD_REQUEST)
 
-    def put(self,request,id_q):
-        item = Answer.objects.get(question_id=id_q,user=self.request.user)
-        serializer = AnswerSerializer(instance=item,data=request.data,partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class EditeAnswer(APIView):
+    permission_classes = [IsAuthenticated, IsJoinable]
+    def put(self,request,id_a,id_class):
+        item = Answer.objects.get(id=id_a)
+        if request.user == item.user or request.user in item.question.classs.teacher.all() or request.user in item.question.classs.ta.all():
+            serializer = AnswerSerializer(instance=item,data=request.data,partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response('nor accesss')    
+
+    def delete(self,request,id_a,id_class):
+        item = Answer.objects.get(id=id_a)
+        if request.user == item.user or request.user in item.question.classs.teacher.all() or request.user in item.question.classs.ta.all():
+            item.delete()
+            return Response('deleted', status=status.HTTP_200_OK)
+        return Response('nor accesss')    
     
 
 class Replyanswer(APIView):
@@ -74,14 +85,7 @@ class ShowQ(APIView):
         item = Answer.objects.filter(question_id=id_q)
         serializer = AnswerSerializer(instance=item, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    def delete(self,request,id_class,id_q):
-        item = Question.objects.get(question_id=id_q)
-        if request.user == item.user or request.user in item.classs.teacher.all() or request.user in item.classs.ta.all():
-            item.delete()
-            return Response('deleted', status=status.HTTP_200_OK)
-        return Response('nor accesss')
-
-
+    
 
     def post(self, request,id_class,id_q):
         item = Answer.objects.get(question_id=id_q,id=request.data.get('id'))
@@ -96,7 +100,7 @@ class ShowQ(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
 
     def delete(self,request,id_class,id_q):
-        item = Answer.objects.get(question_id=id_q,id=request.data.get('id'))
+        item = Answer.objects.get(question_id=id_q, id=request.data.get('id'))
         try:
             f = Rate.objects.get(answer=item, user=request.user)
             f.delete()

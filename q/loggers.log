@@ -138,3 +138,120 @@
 {'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'exercise:task (task)', 'host': '127.0.0.1:8000'}
 {'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'exercise:task (task)', 'host': '127.0.0.1:8000'}
 {'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'exercise:task (task)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'No view associated', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'No view associated', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:index (index)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_changelist (forum_answer_changelist)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_change (forum_answer_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_question_change (forum_question_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'No view associated', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:login (login)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:index (index)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'No view associated', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'No view associated', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'No view associated', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'No view associated', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'No view associated', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'No view associated', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'No view associated', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_change (forum_answer_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_changelist (forum_answer_changelist)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_change (forum_answer_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_changelist (forum_answer_changelist)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_change (forum_answer_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_change (forum_answer_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'No view associated', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'accounts:login (login)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'accounts:login (login)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_question_change (forum_question_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_question_change (forum_question_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:classs_classs_change (classs_classs_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:classs_classs_change (classs_classs_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:classs_classs_changelist (classs_classs_changelist)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:classs_classs_change (classs_classs_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:classs_classs_change (classs_classs_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:classs_classs_changelist (classs_classs_changelist)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_changelist (forum_answer_changelist)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_change (forum_answer_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_change (forum_answer_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_changelist (forum_answer_changelist)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_change (forum_answer_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_change (forum_answer_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_change (forum_answer_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_change (forum_answer_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_changelist (forum_answer_changelist)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_change (forum_answer_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_change (forum_answer_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_changelist (forum_answer_changelist)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_change (forum_answer_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_change (forum_answer_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_changelist (forum_answer_changelist)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_change (forum_answer_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_change (forum_answer_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_changelist (forum_answer_changelist)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_change (forum_answer_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_change (forum_answer_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_changelist (forum_answer_changelist)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_change (forum_answer_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_change (forum_answer_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_changelist (forum_answer_changelist)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'forum:answer-detail (answer-detail)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:forum_answer_changelist (forum_answer_changelist)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}

@@ -8,5 +8,5 @@ urlpatterns = [
     path('answers/<int:id_q>', AnswerQuestionCreateView.as_view(), name='question-detail'),
     path('answer/<int:id_a>/<int:id_q>', Replyanswer.as_view(), name='reply-detail'),
     path('ShowQ/<int:id_class>/<int:id_q>', ShowQ.as_view(), name='ShowQ'),
-    # path('answers/<int:pk>/', AnswerDetailView.as_view(), name='answer-detail'),
+    path('editanswer/<int:id_a>/<int:id_class>', EditeAnswer.as_view(), name='answer-detail'),
 ]
