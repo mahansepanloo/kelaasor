@@ -103,3 +103,11 @@ class Taskserlazers(serializers.ModelSerializer):
             'exercise':{'required': False}
         }
 
+class ShowGroupsSerializers(serializers.ModelSerializer):  
+    user = serializers.SerializerMethodField()  
+    class Meta:  
+        model = Group  
+        fields = "__all__" 
+
+    def get_user(self, obj):  
+        return [user.username for user in obj.user.all()]

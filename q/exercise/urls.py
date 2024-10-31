@@ -19,6 +19,7 @@ urlpatterns = [
     path('EditSocerUserGroupView/<int:id_a>',views.EditSocerUserGroupView.as_view()),
     path("RezscoreUser/<int:e_id>",views.RezscoreUser.as_view(), name="RezscoreUser"),
     path("addtask/<int:e_id>",views.AddTask.as_view(), name="task"),
+    path('groups/<int:id_e>/<int:id_class>',views.Show_Groups.as_view(), name='show_groups'),
 
 
 ]

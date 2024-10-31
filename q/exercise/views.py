@@ -514,3 +514,13 @@ class AllAnswers(APIView):
             serializer = AnswerTextSerializer(q,many=True)
             return Response(serializer.data,status=status.HTTP_200_OK)
         return Response("not founds", status=status.HTTP_404_NOT_FOUND)
+
+
+class Show_Groups(APIView):
+    permission_classes = [IsAuthenticated,IsJoinable]
+    def get(self,reqeust,id_e,id_class):
+        group = Group.objects.filter(exercise_id=id_e)
+        data = ShowGroupsSerializers(instance=group,many=True)
+        return Response(data.data,status = status.HTTP_200_OK)
+    
+    
