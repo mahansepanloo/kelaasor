@@ -282,6 +282,7 @@ class AddPrivateEmailClass(APIView):
         else :
             return Response('you not permissons join classs', status=status.HTTP_400_BAD_REQUEST)
 class AddT(APIView):
+    permission_classes = [IsAuthenticated,Isperm]
     def put(self, request, id_class):
         try:
             item = Classs.objects.get(id=id_class, teacher=request.user)
