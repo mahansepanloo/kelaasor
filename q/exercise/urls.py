@@ -10,6 +10,7 @@ urlpatterns = [
     path('groupm/<int:id_e>', views.Create_Group_Manual.as_view(), name='groupm'),
     path('score/<int:id_q>', views.SubCriteriaCreate.as_view(), name="SubCriteriaCreate"),
     path('answer/<int:id_q>', views.all_Answer.as_view(), name='answer'),
+    path("a/<int:id_q>",views.AllAnswers.as_view()),
     path('ansertext/<int:id_a>', views.SocerTextAnswer.as_view(), name="SocerTextAnswer"),
     path('submitanswer/<int:id_q>', views.SubmitAnswer.as_view(), name='submit'),
     path('answercreateJuge/<int:id_a>',views.AnswerCreateJuge.as_view()),
@@ -17,6 +18,7 @@ urlpatterns = [
     path('Download/<int:file>',views.Download.as_view()),
     path('EditSocerUserGroupView/<int:id_a>',views.EditSocerUserGroupView.as_view()),
     path("RezscoreUser/<int:e_id>",views.RezscoreUser.as_view(), name="RezscoreUser"),
-    path("addtask/<int:e_id>",views.AddTask.as_view(), name="task")
+    path("addtask/<int:e_id>",views.AddTask.as_view(), name="task"),
+
 
 ]
