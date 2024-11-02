@@ -1,4 +1,5 @@
 from datetime import datetime,timedelta
+from django.utils import timezone
 from classs.models import Classs
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
@@ -31,7 +32,8 @@ class Register(APIView):
                 'username': serializer.validated_data['username'],
                 'password': serializer.validated_data['password'],
                 'phone_number': serializer.validated_data['phone_number'],
-                "code":code
+                "code":code,
+                "time": timezone.now().isoformat()
             }
             # send_otp_code(serializer.validated_data['phone_number'], code)
 #           cache.set(serializer.validated_data['phone_number'], timeout=180)
@@ -55,9 +57,9 @@ class OptCode(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
         serializer = OptCodes(data=request.data)
         if serializer.is_valid():
-            # if (request.session['code'] == serializer.validated_data['code'] and
-            #         datetime.now() <= request.session['register']['time'] + timedelta(seconds=180)):
-            if (request.session['register']['code'] == serializer.validated_data['code']):
+            if ((request.session['register']['code'] == serializer.validated_data['code']) and
+                     timezone.now() <= timezone.datetime.fromisoformat(request.session['register']['time']) + timedelta(seconds=2)):
+
                 User.objects.create_user(username=request.session['register']['username'],
                                          password=request.session['register']['password'],
                                          phone_number=request.session['register']['phone_number'])
@@ -92,6 +94,8 @@ class Change_password(APIView):
             request.session['change_password'] = {
                 'user': user.username,
                 "code":code,
+                "time": timezone.now().isoformat()
+
             }
             # send_otp_code(serializer.validated_data['phone_number'], code)
             return Response('ok',status=status.HTTP_200_OK)
@@ -101,9 +105,9 @@ class Change_password2(APIView):
     def put(self,request):
         serializer = ChangeSerializer2(data=request.data)
         if serializer.is_valid():
-            # if (request.session['change_password']['code'] == serializer.validated_data['code'] and
-            #         datetime.now() <= request.session['change_password']['time'] + timedelta(seconds=180)):
-            if (request.session['change_password']['code'] == serializer.validated_data['code']):
+            if ((request.session['register']['code'] == serializer.validated_data['code']) and
+                    timezone.now() <= timezone.datetime.fromisoformat(request.session['register']['time']) + timedelta(
+                        seconds=2)):
                 user = User.objects.get(username=request.session['change_password']['user'])
                 user.set_password(serializer.validated_data['password'])
                 user.save()
