@@ -46,7 +46,7 @@ class LoggerMiddleware:
 
 
 
-    
+
 from django.http import HttpResponseForbidden  
 from datetime import datetime,timedelta
 
@@ -69,11 +69,13 @@ class BlockIpMiddleware:
         else:
             ip = request.META.get('REMOTE_ADDR')
         return ip
-    def _remove_expired_bans(self,requset):
+    
+
+    def _remove_expired_bans(self,request):
         now = datetime.now()
-        for ip in list_ban:
-            if now - list_ban[ip] > timedelta(minutes=1):
-                del list_ban[ip]
+        if self.get_ip(request) in list_ban:
+            if now - list_ban[self.get_ip(request)] > timedelta(minutes=1):
+                del list_ban[self.get_ip(request)]
            
     
 
@@ -85,6 +87,8 @@ class Manager_ban:
 
     def remove(self,request):
             del list_ban[self._get_ip(request)]  
+
+            
     def _get_ip(self,request):
         x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
         if x_forwarded_for:
