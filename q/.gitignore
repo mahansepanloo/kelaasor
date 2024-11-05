@@ -16,7 +16,7 @@ pip-delete-this-directory.txt
 
 
 # Django
-#*.log
+*.log
 *.pot
 *.pyc
 *.pyo

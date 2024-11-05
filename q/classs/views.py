@@ -79,7 +79,17 @@ get :
             except Exception as e:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-
+    
+class All_class_PUblic(APIView):
+    """
+    get :
+        Returns a list of all public classes.
+    """
+    permission_classes = [IsAuthenticated]
+    def get(self,request):
+        item = Classs.objects.filter(type="public")
+        serilazers = CreateClassSerializer(instance=item, many=True)
+        return Response(serilazers.data,status=status.HTTP_200_OK)
 
 class AddPublicClass(APIView):
     """
@@ -281,6 +291,7 @@ class AddPrivateEmailClass(APIView):
 
         else :
             return Response('you not permissons join classs', status=status.HTTP_400_BAD_REQUEST)
+        
 class AddT(APIView):
     permission_classes = [IsAuthenticated,Isperm]
     def put(self, request, id_class):
@@ -340,6 +351,7 @@ class Edite(APIView):
                         return Response('user not founds', status=status.HTTP_404_NOT_FOUND)
                     if user in item.user.all():
                         item.user.remove(user)
+                        item.stock += 1
                         return Response(f'{user.username}remove to classs', status=status.HTTP_200_OK)
                     return Response('user not found', status=status.HTTP_404_NOT_FOUND)
             return Response('error',status=status.HTTP_400_BAD_REQUEST)

@@ -342,3 +342,12 @@
 {'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'accounts:OptCode (OptCode)', 'host': '127.0.0.1:8000'}
 {'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'accounts:OptCode (OptCode)', 'host': '127.0.0.1:8000'}
 {'ip': '127.0.0.1', 'user': 'Anonymoususer', 'view': 'accounts:OptCode (OptCode)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'No view associated', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'No view associated', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'No view associated', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'No view associated', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:index (index)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:classs_classs_changelist (classs_classs_changelist)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:classs_classs_change (classs_classs_change)', 'host': '127.0.0.1:8000'}
+{'ip': '127.0.0.1', 'user': 'admin', 'view': 'admin:jsi18n (jsi18n)', 'host': '127.0.0.1:8000'}
